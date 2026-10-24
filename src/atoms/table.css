@@ -1,0 +1,28 @@
+table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  text-align: start;
+  font-variant-numeric: tabular-nums;
+}
+caption {
+  text-align: start;
+  font-weight: 650;
+  margin-block-end: 0.75em;
+}
+th,
+td {
+  padding: 0.8em;
+  border-block-end: 1px solid var(--dg-divider);
+  vertical-align: top;
+}
+th {
+  font-weight: 650;
+  background: var(--dg-surface-muted);
+}
+tbody tr:hover {
+  background: var(--dg-tint);
+}
+[data-overflow] {
+  overflow-x: auto;
+  max-inline-size: 100%;
+}

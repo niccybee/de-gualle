@@ -1,0 +1,9 @@
+node_modules/
+dist/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+docs/public/css/
+docs/public/examples/
+docs/public/theme/
+output/
+docs/public/*.txt

@@ -1,0 +1,44 @@
+{
+  "name": "de-gualle",
+  "version": "0.1.0",
+  "description": "🍅 Classless CSS, native HTML, thoughtful defaults.",
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "bun@1.2.15",
+  "files": [
+    "dist",
+    "src",
+    "recipes",
+    "theme",
+    "README.md",
+    "LICENSE"
+  ],
+  "style": "./dist/de-gualle.scoped.css",
+  "exports": {
+    ".": "./dist/de-gualle.scoped.css",
+    "./global.css": "./dist/de-gualle.css",
+    "./scoped.css": "./dist/de-gualle.scoped.css",
+    "./atoms/*.css": "./dist/atoms/*.css",
+    "./molecules/*.css": "./dist/molecules/*.css",
+    "./organisms/*.css": "./dist/organisms/*.css",
+    "./theme": "./theme/generate.mjs"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build:css": "node scripts/build.mjs",
+    "dev": "nr build:css && vitepress dev docs --host 127.0.0.1",
+    "build": "nr build:css && vitepress build docs",
+    "preview": "vitepress preview docs --host 127.0.0.1",
+    "test": "node --test tests/*.test.mjs",
+    "check": "nr build:css && nr test && vitepress build docs",
+    "prepack": "nr build:css"
+  },
+  "devDependencies": {
+    "lightningcss": "^1.33.0",
+    "postcss": "^8.5.31",
+    "vitepress": "1.6.4",
+    "vue": "3.5"
+  }
+}

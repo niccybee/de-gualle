@@ -1,0 +1,66 @@
+details {
+  border-block-end: 1px solid var(--dg-divider);
+  margin-block-end: var(--dg-space);
+  padding-block-end: var(--dg-space);
+}
+summary {
+  cursor: pointer;
+  font-weight: 620;
+  min-block-size: 2.75rem;
+  padding-block: 0.6em;
+}
+details[open] > summary {
+  margin-block-end: 0.5em;
+}
+nav details {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+nav details > ul {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-end: 0;
+  min-inline-size: 12em;
+  padding: var(--dg-space);
+  display: block;
+  border: 1px solid var(--dg-border);
+  background: var(--dg-surface);
+  z-index: 2;
+}
+dialog {
+  color: var(--dg-text);
+  background: var(--dg-surface);
+  border: 1px solid var(--dg-border);
+  border-radius: var(--dg-radius);
+  max-inline-size: min(36rem, 90vw);
+  max-block-size: 85vh;
+  padding: calc(var(--dg-space) * 1.5);
+  overflow: auto;
+}
+dialog:not([open]) {
+  display: none;
+}
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.55);
+}
+[data-tooltip] {
+  position: relative;
+}
+[data-tooltip]:hover::after,
+[data-tooltip]:focus::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  inset-block-end: calc(100% + 0.5em);
+  inset-inline-start: 0;
+  max-inline-size: 20rem;
+  inline-size: max-content;
+  background: var(--dg-text);
+  color: var(--dg-background);
+  padding: 0.4em 0.7em;
+  border-radius: var(--dg-radius);
+  font-size: 0.85em;
+  z-index: 3;
+  pointer-events: none;
+}

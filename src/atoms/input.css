@@ -1,0 +1,108 @@
+input:not([type="hidden"]):not([type="image"]):not([type="checkbox"]):not(
+    [type="radio"]
+  ):not([type="range"]):not([type="submit"]):not([type="button"]):not(
+    [type="reset"]
+  ),
+textarea,
+select {
+  display: block;
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 2.75rem;
+  padding: 0.65em 0.8em;
+  border: 1px solid var(--dg-border);
+  border-radius: var(--dg-radius);
+  background: var(--dg-surface);
+  color: var(--dg-text);
+  font: inherit;
+  font-family: var(--dg-font);
+  font-size: max(1rem, var(--dg-font-size));
+  line-height: 1.5;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--dg-muted);
+  opacity: 1;
+}
+textarea {
+  resize: vertical;
+  min-block-size: 6em;
+}
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background: var(--dg-surface-muted);
+  cursor: not-allowed;
+}
+input[readonly],
+textarea[readonly] {
+  background: var(--dg-surface-muted);
+  border-style: dashed;
+}
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border: 2px solid var(--dg-error);
+}
+input[aria-invalid="false"],
+textarea[aria-invalid="false"],
+select[aria-invalid="false"] {
+  border-color: var(--dg-success);
+}
+input[type="checkbox"],
+input[type="radio"] {
+  inline-size: 1.2em;
+  block-size: 1.2em;
+  margin: 0.2em 0.5em 0.2em 0;
+  vertical-align: middle;
+  accent-color: var(--dg-primary);
+}
+input[type="range"] {
+  inline-size: 100%;
+  min-block-size: 2.75rem;
+  accent-color: var(--dg-primary);
+}
+input[type="color"] {
+  padding: 0.25em;
+  cursor: pointer;
+}
+input[type="file"] {
+  overflow: hidden;
+}
+input::file-selector-button {
+  font: inherit;
+  padding: 0.35em 0.7em;
+  border: 0;
+  border-radius: var(--dg-radius);
+  background: var(--dg-surface-muted);
+  color: var(--dg-text);
+  margin-inline-end: 0.7em;
+}
+input[role="switch"] {
+  appearance: none;
+  inline-size: 2.5em;
+  block-size: 1.4em;
+  border: 1px solid var(--dg-border);
+  border-radius: 2em;
+  background: var(--dg-surface-muted);
+  position: relative;
+  cursor: pointer;
+}
+input[role="switch"]::before {
+  content: "";
+  display: block;
+  inline-size: 1em;
+  block-size: 1em;
+  border-radius: 50%;
+  background: var(--dg-muted);
+  position: absolute;
+  inset-block-start: 0.13em;
+  inset-inline-start: 0.15em;
+}
+input[role="switch"]:checked {
+  background: var(--dg-primary);
+}
+input[role="switch"]:checked::before {
+  inset-inline-start: 1.2em;
+  background: var(--dg-on-primary);
+}

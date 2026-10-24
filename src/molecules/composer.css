@@ -1,0 +1,13 @@
+form[data-composer] {
+  margin: 0;
+  padding-block-start: var(--dg-space);
+  border-block-start: 1px solid var(--dg-divider);
+}
+form[data-composer] textarea {
+  min-block-size: 5em;
+  max-block-size: 16em;
+}
+form[data-composer] > [data-actions] {
+  margin-block-start: 0.65em;
+  justify-content: space-between;
+}

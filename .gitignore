@@ -1,0 +1,13 @@
+node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+docs/public/css/
+docs/public/examples/
+docs/public/theme/
+docs/public/de-gualle*.css
+docs/public/llms-full.txt
+dist/
+output/
+.playwright-cli/
+*.tgz
+.DS_Store

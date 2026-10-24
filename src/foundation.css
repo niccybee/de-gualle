@@ -1,0 +1,75 @@
+/* :--root is expanded at build time. No runtime or nonstandard selectors ship. */
+:--root {
+  color-scheme: light;
+  --dg-font:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --dg-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --dg-font-size: clamp(1rem, 0.95rem + 0.22vw, 1.125rem);
+  --dg-space: clamp(0.9rem, 0.72rem + 0.65vw, 1.4rem);
+  --dg-radius: 0.3rem;
+  --dg-line-height: 1.6;
+  --dg-measure: 76rem;
+  font-family: var(--dg-font);
+  font-size: var(--dg-font-size);
+  line-height: var(--dg-line-height);
+  color: var(--dg-text);
+  background: var(--dg-background);
+  -webkit-text-size-adjust: 100%;
+  overflow-wrap: break-word;
+}
+:--root[data-size="sm"] {
+  --dg-font-size: 0.9375rem;
+  --dg-space: 0.75rem;
+}
+:--root[data-size="md"] {
+  --dg-font-size: 1rem;
+  --dg-space: 1rem;
+}
+:--root[data-size="lg"] {
+  --dg-font-size: 1.125rem;
+  --dg-space: 1.5rem;
+}
+:--root[data-size="natural"] {
+  --dg-font-size: clamp(1rem, 0.95rem + 0.22vw, 1.125rem);
+  --dg-space: clamp(0.9rem, 0.72rem + 0.65vw, 1.4rem);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+[hidden] {
+  display: none !important;
+}
+:focus {
+  outline: 2px solid var(--dg-focus);
+  outline-offset: 3px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--dg-focus);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (forced-colors: active) {
+  button,
+  input,
+  textarea,
+  select {
+    border: 1px solid ButtonText;
+  }
+  :focus {
+    outline-color: Highlight;
+  }
+}

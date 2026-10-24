@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Elements · de-gualle</title>
+    <link rel="icon" type="image/svg+xml" href="../tomato.svg" />
+    <link rel="stylesheet" href="../css/de-gualle.css" />
+  </head>
+  <body data-de-gualle data-size="natural">
+    <header>
+      <nav aria-label="Example navigation">
+        <a href="../index.html">🍅 de-gualle</a>
+        <ul>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>HTML is the component.</h1>
+      <p>
+        A living specimen of the elements and their states. All styling is
+        classless.
+      </p>
+      <section aria-labelledby="type-title">
+        <h2 id="type-title">Words, with room to breathe.</h2>
+        <p>
+          A paragraph with
+          <strong>strong emphasis</strong>
+          ,
+          <em>a softer note</em>
+          ,
+          <mark>a highlight</mark>
+          and
+          <a href="#forms">a useful link</a>
+          .
+          <small>Supporting text stays readable.</small>
+        </p>
+        <blockquote>
+          Start with meaningful HTML. Add only what is needed.
+        </blockquote>
+        <div data-grid>
+          <div>
+            <h3>Lists</h3>
+            <ul>
+              <li>Native elements</li>
+              <li>Composed patterns</li>
+              <li>Useful pages</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Definitions</h3>
+            <dl>
+              <dt>Atom</dt>
+              <dd>A native element.</dd>
+              <dt>Molecule</dt>
+              <dd>A small, purposeful composition.</dd>
+            </dl>
+          </div>
+        </div>
+        <pre><code>&lt;button aria-busy="true" disabled&gt;Saving…&lt;/button&gt;</code></pre>
+      </section>
+      <section id="forms" aria-labelledby="forms-title">
+        <h2 id="forms-title">Forms & states</h2>
+        <form>
+          <div data-grid>
+            <div data-field>
+              <label for="ready">Ready</label>
+              <input id="ready" name="ready" placeholder="A fresh start" />
+              <small>Enabled and idle. No custom ready attribute.</small>
+            </div>
+            <div data-field>
+              <label for="valid">Explicitly validated</label>
+              <input
+                id="valid"
+                type="email"
+                value="alex@example.com"
+                aria-invalid="false"
+              />
+              <small>Validation has succeeded.</small>
+            </div>
+            <div data-field>
+              <label for="invalid">Error</label>
+              <input
+                id="invalid"
+                type="email"
+                value="not-an-email"
+                aria-invalid="true"
+                aria-describedby="email-error"
+              />
+              <small id="email-error" role="alert">
+                ! Enter a complete email address.
+              </small>
+            </div>
+            <div data-field>
+              <label for="disabled">Unavailable</label>
+              <input id="disabled" value="Not available" disabled />
+              <small>Disabled controls are not submitted.</small>
+            </div>
+            <div data-field>
+              <label for="readonly">Read-only</label>
+              <input id="readonly" value="DG-2026-014" readonly />
+              <small>Can be focused, copied and submitted.</small>
+            </div>
+            <div data-field>
+              <label for="required">Required, untouched</label>
+              <input
+                id="required"
+                name="required"
+                required
+                aria-describedby="required-help"
+              />
+              <small id="required-help">
+                Required; no premature error styling.
+              </small>
+            </div>
+          </div>
+          <div data-grid>
+            <label>
+              Choose a project
+              <select>
+                <option>Website refresh</option>
+                <option>Documentation</option>
+                <option disabled>Archived (unavailable)</option>
+              </select>
+            </label>
+            <label>
+              Multiple selection
+              <select multiple size="3">
+                <option selected>Design</option>
+                <option>Development</option>
+                <option>Writing</option>
+              </select>
+            </label>
+            <label>
+              Notes
+              <textarea placeholder="A little more context…"></textarea>
+            </label>
+          </div>
+          <fieldset>
+            <legend>Native choices</legend>
+            <label>
+              <input type="checkbox" checked />
+              Checked
+            </label>
+            <label>
+              <input type="checkbox" id="mixed" />
+              Indeterminate (set by demo JavaScript)
+            </label>
+            <label>
+              <input type="checkbox" disabled />
+              Unavailable
+            </label>
+            <label>
+              <input type="checkbox" role="switch" checked />
+              Notifications
+            </label>
+            <label>
+              <input type="radio" name="plan" checked />
+              Personal
+            </label>
+            <label>
+              <input type="radio" name="plan" />
+              Team
+            </label>
+          </fieldset>
+          <div data-grid>
+            <label>
+              Range
+              <input type="range" min="0" max="100" value="60" />
+            </label>
+            <label>
+              Colour
+              <input type="color" value="#c44332" />
+            </label>
+            <label>
+              File
+              <input type="file" />
+            </label>
+            <label>
+              Date
+              <input type="date" />
+            </label>
+            <label>
+              Time
+              <input type="time" />
+            </label>
+            <label>
+              Number
+              <input type="number" min="1" max="10" value="4" />
+            </label>
+            <label>
+              Search
+              <input type="search" placeholder="Find something" />
+            </label>
+            <label>
+              Password
+              <input type="password" autocomplete="new-password" />
+            </label>
+            <label>
+              Telephone
+              <input type="tel" autocomplete="tel" />
+            </label>
+            <label>
+              URL
+              <input type="url" placeholder="https://example.com" />
+            </label>
+          </div>
+          <fieldset role="group">
+            <legend>A composed search</legend>
+            <input type="search" aria-label="Search documentation" />
+            <button type="button">Search</button>
+          </fieldset>
+          <div data-actions>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+            <button type="button" data-variant="secondary">Secondary</button>
+            <button type="button" data-variant="danger">Delete</button>
+            <button type="button" disabled>Unavailable</button>
+            <button type="button" aria-busy="true" disabled>Saving…</button>
+          </div>
+        </form>
+      </section>
+      <section aria-labelledby="patterns-title">
+        <h2 id="patterns-title">Small patterns</h2>
+        <div data-grid>
+          <article>
+            <header><h3>A simple card</h3></header>
+            <p>
+              An article with a header, body and footer. No card class needed.
+            </p>
+            <footer><a href="chat.html">Open the chat example</a></footer>
+          </article>
+          <div>
+            <details>
+              <summary>Native disclosure</summary>
+              <p>Keyboard and expanded state are handled by the browser.</p>
+            </details>
+            <nav aria-label="Dropdown example">
+              <details>
+                <summary>Project actions</summary>
+                <ul>
+                  <li><a href="chat.html">Chat</a></li>
+                  <li><a href="dashboard.html">Dashboard</a></li>
+                </ul>
+              </details>
+            </nav>
+          </div>
+        </div>
+        <p role="status">Your changes have been saved.</p>
+        <p role="alert">
+          ! Something needs your attention. An error is always described in
+          text.
+        </p>
+        <label for="progress">Upload progress</label>
+        <progress id="progress" value="65" max="100">65%</progress>
+        <label for="meter">Storage used</label>
+        <meter id="meter" min="0" max="100" value="40">40%</meter>
+        <p>
+          <abbr title="Hypertext Markup Language">HTML</abbr>
+          uses a native title hint. Keep essential explanations visible.
+        </p>
+        <button type="button" id="open-dialog">Open dialog</button>
+        <dialog id="example-dialog" aria-labelledby="dialog-title">
+          <h2 id="dialog-title">A native dialog</h2>
+          <p>
+            Focus management, Escape dismissal and the backdrop come from the
+            browser.
+          </p>
+          <form method="dialog"><button>Close dialog</button></form>
+        </dialog>
+      </section>
+    </main>
+    <script type="module" src="elements.js"></script>
+  </body>
+</html>

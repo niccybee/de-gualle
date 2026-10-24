@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Dashboard · de-gualle</title>
+    <link rel="icon" type="image/svg+xml" href="../tomato.svg" />
+    <link rel="stylesheet" href="../css/de-gualle.css" />
+  </head>
+  <body data-de-gualle data-size="natural">
+    <header>
+      <nav aria-label="Example navigation">
+        <a href="../index.html">🍅 de-gualle</a>
+        <ul>
+          <li><a href="chat.html">Chat recipe</a></li>
+          <li><a href="elements.html">Elements</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section data-dashboard aria-labelledby="dashboard-title">
+        <header>
+          <div>
+            <small>WORKSPACE / OVERVIEW</small>
+            <h1 id="dashboard-title">Good things, growing.</h1>
+            <p>A quieter view of your team's work.</p>
+          </div>
+          <div data-actions>
+            <button id="refresh" type="button">Refresh data</button>
+            <button id="fail" type="button" data-variant="secondary">
+              Simulate error
+            </button>
+          </div>
+        </header>
+        <dl>
+          <div>
+            <dt>Active projects</dt>
+            <dd>12</dd>
+          </div>
+          <div>
+            <dt>Tasks completed</dt>
+            <dd>148</dd>
+          </div>
+          <div>
+            <dt>Team members</dt>
+            <dd>8</dd>
+          </div>
+        </dl>
+        <h2>Recent projects</h2>
+        <form id="filters" role="search">
+          <div data-grid>
+            <label>
+              Find a project
+              <input
+                type="search"
+                id="search"
+                name="search"
+                placeholder="Search by name"
+              />
+            </label>
+            <label>
+              Status
+              <select id="filter" name="status">
+                <option value="all">All projects</option>
+                <option value="In progress">In progress</option>
+                <option value="Complete">Complete</option>
+                <option value="Archived">Archived (empty state)</option>
+              </select>
+            </label>
+          </div>
+        </form>
+        <p id="dashboard-status" role="status" aria-live="polite">
+          3 projects shown.
+        </p>
+        <div id="dashboard-error" role="alert" hidden>
+          <p>Could not refresh projects. Your filters are preserved.</p>
+          <button id="retry" type="button" data-variant="secondary">
+            Retry refresh
+          </button>
+        </div>
+        <p id="empty" hidden>
+          No projects match these filters. Try another search or status.
+        </p>
+        <div
+          data-overflow
+          id="results"
+          tabindex="0"
+          role="region"
+          aria-label="Project results"
+        >
+          <table>
+            <caption>Workspace activity · sample data</caption>
+            <thead>
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Status</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Website refresh</th>
+                <td>In progress</td>
+                <td>Alex</td>
+                <td><time datetime="2026-10-23">23 Oct 2026</time></td>
+              </tr>
+              <tr>
+                <th scope="row">Agent documentation</th>
+                <td>In progress</td>
+                <td>Jordan</td>
+                <td><time datetime="2026-10-22">22 Oct 2026</time></td>
+              </tr>
+              <tr>
+                <th scope="row">Design foundations</th>
+                <td>Complete</td>
+                <td>Sam</td>
+                <td><time datetime="2026-10-21">21 Oct 2026</time></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <noscript>
+          <p>
+            All sample projects are shown. Filtering and state simulations need
+            the separate demo script.
+          </p>
+        </noscript>
+      </section>
+    </main>
+    <script type="module" src="dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Chat · de-gualle</title>
+    <link rel="icon" type="image/svg+xml" href="../tomato.svg" />
+    <link rel="stylesheet" href="../css/de-gualle.css" />
+  </head>
+  <body data-de-gualle data-size="natural">
+    <header>
+      <nav aria-label="Example navigation">
+        <a href="../index.html">🍅 de-gualle</a>
+        <small>Local recipe · no network requests</small>
+      </nav>
+    </header>
+    <main>
+      <section aria-labelledby="settings-title">
+        <h1 id="settings-title">A little conversation.</h1>
+        <p>Native elements. Explicit states. Nothing up our sleeves.</p>
+        <div data-grid>
+          <label>
+            Try a scenario
+            <select id="scenario">
+              <option value="normal">A helpful response</option>
+              <option value="long">A long response</option>
+              <option value="code">A code example</option>
+              <option value="error">Response error</option>
+              <option value="unavailable">Service unavailable</option>
+            </select>
+          </label>
+          <label>
+            Appearance
+            <select id="appearance">
+              <option value="system">System</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
+          <label>
+            Size
+            <select id="size">
+              <option value="natural">Natural</option>
+              <option value="sm">Small</option>
+              <option value="md">Medium</option>
+              <option value="lg">Large</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section data-chat aria-labelledby="chat-title">
+        <header>
+          <h2 id="chat-title">Your assistant</h2>
+          <small>Simulated responses. Your messages stay in this page.</small>
+        </header>
+        <ol id="messages" aria-label="Conversation" tabindex="0"></ol>
+        <p id="chat-status" role="status" aria-live="polite" aria-atomic="true">
+          Start a conversation below.
+        </p>
+        <div id="chat-error" role="alert" hidden>
+          <p id="error-message"></p>
+          <button id="retry" type="button" data-variant="secondary">
+            Retry response
+          </button>
+        </div>
+        <form data-composer id="composer">
+          <label for="message">Your message</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            maxlength="4000"
+            placeholder="What are we working on today?"
+            aria-describedby="composer-help"
+          ></textarea>
+          <small id="composer-help">
+            Up to 4,000 characters. Newlines are welcome.
+          </small>
+          <div data-actions>
+            <button id="send" type="submit">Send message</button>
+            <button id="stop" type="button" data-variant="secondary" hidden>
+              Stop response
+            </button>
+            <button id="clear" type="button" data-variant="secondary">
+              Clear conversation
+            </button>
+          </div>
+        </form>
+      </section>
+      <noscript>
+        <p role="alert">
+          The library styles this page without JavaScript. The simulated
+          conversation needs the separate demo script.
+        </p>
+      </noscript>
+    </main>
+    <script type="module" src="chat.js"></script>
+  </body>
+</html>

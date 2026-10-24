@@ -1,0 +1,20 @@
+progress,
+meter {
+  display: block;
+  inline-size: 100%;
+  block-size: 0.7em;
+  margin-block: var(--dg-space);
+  accent-color: var(--dg-primary);
+  border: 0;
+  border-radius: var(--dg-radius);
+  overflow: hidden;
+}
+progress::-webkit-progress-bar {
+  background: var(--dg-surface-muted);
+}
+progress::-webkit-progress-value {
+  background: var(--dg-primary);
+}
+progress::-moz-progress-bar {
+  background: var(--dg-primary);
+}
