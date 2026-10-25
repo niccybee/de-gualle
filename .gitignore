@@ -11,3 +11,4 @@ output/
 .playwright-cli/
 *.tgz
 .DS_Store
+docs/public/specimens/

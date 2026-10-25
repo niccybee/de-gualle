@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir, cp, readdir } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import postcss from "postcss";
 import { transform } from "lightningcss";
@@ -136,6 +137,22 @@ async function build() {
         `\n\n# File: ${name}\n\n${await readFile(`docs/${name}`, "utf8")}`,
     ),
   );
+  // Generate isolated specimens from the same fenced HTML shown in the docs.
+  await mkdir("docs/public/specimens", { recursive: true });
+  for (const name of docs) {
+    const markdown = await readFile(`docs/${name}`, "utf8");
+    for (const match of markdown.matchAll(/```html preview[^\n]*\n([\s\S]*?)```/g)) {
+      const source = match[1];
+      const hash = createHash("sha256").update(source).digest("hex").slice(0, 16);
+      await writeFile(`docs/public/specimens/${hash}.html`, `<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>de-gualle component specimen</title>
+<link rel="stylesheet" href="../css/de-gualle.css">
+<style>body{margin:0;padding:1rem}body>main{padding:0}body>:first-child{margin-top:0}</style>
+</head><body data-size="md">${source}</body></html>`);
+    }
+  }
   await writeFile(
     "docs/public/llms-full.txt",
     "# de-gualle — agent reference\n" + text.join(""),

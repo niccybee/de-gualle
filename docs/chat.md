@@ -6,7 +6,7 @@ The chat organism combines native headings, an ordered message list, a composer,
 import "de-gualle/organisms/chat.css";
 ```
 
-```html
+```html preview 650
 <section data-de-gualle data-chat aria-labelledby="chat-title">
   <header><h2 id="chat-title">Assistant</h2></header>
   <ol aria-label="Conversation">

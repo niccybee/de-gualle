@@ -6,7 +6,7 @@ The dashboard organism uses a named section, definition-list metrics, a filterin
 import "de-gualle/organisms/dashboard.css";
 ```
 
-```html
+```html preview 650
 <section data-de-gualle data-dashboard aria-labelledby="overview-title">
   <header><h1 id="overview-title">Overview</h1></header>
   <dl>

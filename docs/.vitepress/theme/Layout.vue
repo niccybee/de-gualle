@@ -37,6 +37,8 @@ const current = (slug) =>
         </a>
         <ul>
           <li><a :href="withBase('/get-started.html')">Documentation</a></li>
+          <li><a :href="withBase('/elements.html')" :aria-current="current('elements')">Elements</a></li>
+          <li><a :href="withBase('/components.html')" :aria-current="current('components')">Components</a></li>
           <li>
             <a :href="withBase('/examples/chat.html')" target="_self">
               Playground ↗

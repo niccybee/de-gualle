@@ -250,3 +250,13 @@ body {
     overflow-wrap: anywhere;
   }
 }
+
+/* Specimens are isolated from documentation CSS and use the public bundle. */
+[data-specimen] { margin-block: 1.5rem 0; min-inline-size: 0; }
+[data-specimen-toolbar] { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-block-end: .5rem; }
+[data-specimen-toolbar] button { margin: 0; padding: .35rem .65rem; font-size: .8rem; }
+[data-specimen] iframe { display: block; inline-size: 100%; border: 1px solid var(--dg-divider); border-radius: var(--dg-radius); background: var(--dg-background); }
+[data-doc-header] nav, [data-doc-header] nav > ul { flex-wrap: wrap; }
+[data-doc-layout] main { min-inline-size: 0; }
+
+[data-specimen-toolbar] [role="status"] { padding: 0; border: 0; background: none; margin: 0; }
