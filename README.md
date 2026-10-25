@@ -46,6 +46,19 @@ import "de-gualle/scoped.css";
 
 The package is prepared locally; no registry release or CDN URL is claimed. To try it in another project, use `ni /absolute/path/to/pico-v2`, or create a tarball with `na pm pack`. The prepack script generates CSS.
 
+## Documentation deployment
+
+GitHub Actions builds and deploys the docs to GitHub Pages on pushes to `main`, or by manually running the Pages workflow. Dependency installation uses `ni --frozen`; `nr check` runs the tests and builds the static site before deployment.
+
+The workflow obtains the site's base path from GitHub Pages and passes it through `DOCS_BASE`. Local development defaults to `/`. To verify a project-site build locally:
+
+```sh
+DOCS_BASE=/de-gualle/ nr check
+nr preview
+```
+
+Visit `/de-gualle/` on the preview server. Enable **GitHub Actions** as the repository's Pages publishing source before the first deployment. The source repository may be private while the documentation site is public, subject to the GitHub account's Pages eligibility.
+
 ## Structure
 
 - `src/`: original CSS atoms, molecules and organisms; no Sass.

@@ -7,7 +7,7 @@ title: Native HTML. Thoughtful defaults.
 <small>🍅 CLASSLESS CSS · MADE FOR PEOPLE & AGENTS</small>
 <h1>Less to write.<br>More room to grow.</h1>
 <p>Good interfaces start with good HTML. de-gualle gives native elements a considered foundation, from a single input to a whole conversation.</p>
-<div data-actions><a href="/get-started.html" data-variant="primary">Plant the first seed →</a><a href="/examples/elements.html" data-variant="secondary">Explore the elements</a></div>
+<div data-actions><a href="./get-started.html" data-variant="primary">Plant the first seed →</a><a href="./examples/elements.html" data-variant="secondary" target="_self">Explore the elements</a></div>
 </section>
 
 <div data-grid>

@@ -37,7 +37,11 @@ const current = (slug) =>
         </a>
         <ul>
           <li><a :href="withBase('/get-started.html')">Documentation</a></li>
-          <li><a :href="withBase('/examples/chat.html')">Playground ↗</a></li>
+          <li>
+            <a :href="withBase('/examples/chat.html')" target="_self">
+              Playground ↗
+            </a>
+          </li>
           <li>
             <label data-theme-control>
               Theme
