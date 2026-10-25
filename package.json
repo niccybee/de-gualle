@@ -34,6 +34,7 @@
     "test": "node --test tests/*.test.mjs",
     "check": "nr build:css && nr test && vitepress build docs && nr verify:docs",
     "verify:docs": "node scripts/check-docs.mjs",
+    "deploy:docs": "node scripts/publish-pages.mjs",
     "prepack": "nr build:css"
   },
   "devDependencies": {

@@ -48,16 +48,27 @@ The package is prepared locally; no registry release or CDN URL is claimed. To t
 
 ## Documentation deployment
 
-GitHub Actions builds and deploys the docs to GitHub Pages on pushes to `main`, or by manually running the Pages workflow. Dependency installation uses `ni --frozen`; `nr check` runs the tests and builds the static site before deployment.
+Live documentation: [niccybee.github.io/de-gualle](https://niccybee.github.io/de-gualle/).
 
-The workflow obtains the site's base path from GitHub Pages and passes it through `DOCS_BASE`. Local development defaults to `/`. To verify a project-site build locally:
+GitHub Pages currently publishes the prebuilt `gh-pages` branch. To publish an update from a checkout with GitHub push access:
+
+```sh
+ni --frozen
+nr deploy:docs
+```
+
+This runs the tests and project-path build, validates internal links and assets, and updates `gh-pages` from an isolated temporary checkout without force-pushing. The source working tree is not switched or overwritten. GitHub's built-in Pages deployment then publishes the branch.
+
+An optional custom Actions workflow is included in `.github/workflows/pages.yml` but is currently disabled. To switch to that mode, select **GitHub Actions** as the repository's Pages publishing source, re-enable the workflow, and run it. It builds on pushes to `main`, obtains the base path from Pages, installs dependencies with `ni --frozen`, and runs `nr check` before deployment.
+
+Local development defaults to `/`. To preview a project-path build:
 
 ```sh
 DOCS_BASE=/de-gualle/ nr check
-nr preview
+DOCS_BASE=/de-gualle/ nr preview
 ```
 
-Visit `/de-gualle/` on the preview server. Enable **GitHub Actions** as the repository's Pages publishing source before the first deployment. The source repository may be private while the documentation site is public, subject to the GitHub account's Pages eligibility.
+Visit `/de-gualle/` on the preview server. Run `nr build` to return to a root-path local build afterward.
 
 ## Structure
 
