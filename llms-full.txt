@@ -119,7 +119,7 @@ The chat organism combines native headings, an ordered message list, a composer,
 import "de-gualle/organisms/chat.css";
 ```
 
-```html
+```html preview 650
 <section data-de-gualle data-chat aria-labelledby="chat-title">
   <header><h2 id="chat-title">Assistant</h2></header>
   <ol aria-label="Conversation">
@@ -216,69 +216,282 @@ On an updated iPhone 7: load docs and standalone examples; operate all controls 
 
 # File: components.md
 
-# Small compositions, clear jobs.
+# Components: composed from HTML
 
-This release covers Pico's broad categories using original classless CSS: native content and controls, disclosure, cards, dropdowns, groups, loading, modal, navigation, progress and nonessential hints. It does not copy Pico classes or promise identical behaviour.
+Each component has a working visual specimen and the exact HTML used to render it. All previews use the full global stylesheet. For individual scoped imports, see [Architecture](./architecture.md).
 
-| Pattern         | Markup / import                                                    | Behaviour boundary                                             |
-| --------------- | ------------------------------------------------------------------ | -------------------------------------------------------------- |
-| Page containers | Direct `body > header/main/footer`; `molecules/layout.css`         | Automatic in global build, or with opted-in body               |
-| Responsive grid | `data-grid`; `molecules/layout.css`                                | Auto-fitting columns, minimum 18rem or available width         |
-| Action row      | `data-actions`; `molecules/layout.css`                             | Wrapping row of actions                                        |
-| Vertical stack  | `data-stack`; `molecules/layout.css`                               | Shared gap between children                                    |
-| Field           | Label + input + help, optional `data-field`; `molecules/field.css` | Explicit label/help associations remain required               |
-| Group           | `fieldset role="group"`; `molecules/field.css`                     | Shared row; provide a legend/name                              |
-| Card            | `article`, optional header/footer; `molecules/card.css`            | Use only for self-contained content                            |
-| Status / error  | `role="status"` / `role="alert"`; `molecules/card.css`             | Live-region semantics, not visual variants                     |
-| Accordion       | `details > summary`; `molecules/disclosure.css`                    | Native disclosure; independent items                           |
-| Dropdown        | `nav details > summary + ul`; `molecules/disclosure.css`           | Native disclosure with ordinary links, not an ARIA menu        |
-| Modal           | `dialog`; `molecules/disclosure.css`                               | Native focus trap/Escape after `showModal()`                   |
-| Loading         | `aria-busy="true"`; `atoms/button.css`                             | Visual state only; app manages the work                        |
-| Tooltip / hint  | Prefer visible help or native `title`                              | CSS `data-tooltip` is nonessential only; see below             |
-| Chat            | `section[data-chat]`; `organisms/chat.css`                         | Requires application behaviour; complete local recipe included |
-| Dashboard       | `section[data-dashboard]`; `organisms/dashboard.css`               | Requires data/filter behaviour; local recipe included          |
+[Native elements and controls](./elements.md) · [Interactive chat](./chat.md) · [Interactive dashboard](./dashboard.md)
 
-## Disclosure and navigation
 
-```html
-<details>
-  <summary>What is included?</summary>
-  <p>Native elements and a few useful patterns.</p>
-</details>
+## Page containers
 
-<nav aria-label="Project navigation">
-  <a href="/">🍅 Project</a>
-  <ul>
-    <li><a href="/projects">Projects</a></li>
-    <li><a href="/settings">Settings</a></li>
-  </ul>
-</nav>
+Direct body children header, main and footer receive page spacing. Import: `molecules/layout.css`.
+
+```html preview 310
+<header><h1>Project notebook</h1></header>
+<main><p>Main content follows the shared page measure.</p></main>
+<footer><small>A useful footer.</small></footer>
 ```
 
-Do not add `role="menu"` to ordinary navigation. The dropdown recipe is a disclosure: it does not implement arrow-key menu navigation, outside-click dismissal, or automatic closing after navigation.
+## Responsive grid
 
-## Dialog recipe
+Columns fit the available width and stack on narrow screens. Import: `molecules/layout.css`.
 
-```html
+```html preview 390
+<div data-grid>
+  <article><h3>Design</h3><p>Plan the next release.</p></article>
+  <article><h3>Build</h3><p>Make something useful.</p></article>
+</div>
+```
+
+## Action row
+
+Actions wrap when space runs out. Import: `molecules/layout.css`.
+
+```html preview 170
+<div data-actions>
+  <button type="button">Save changes</button>
+  <button type="button" data-variant="secondary">Cancel</button>
+</div>
+```
+
+## Vertical stack
+
+Shared spacing between children. Import: `molecules/layout.css`.
+
+```html preview 320
+<div data-stack>
+  <label>Project <input name="project" value="Documentation"></label>
+  <p>Keep related items together.</p>
+  <button type="button">Continue</button>
+</div>
+```
+
+## Field
+
+Associate labels and help explicitly. Import: `molecules/field.css`.
+
+```html preview 220
+<div data-field>
+  <label for="email">Email address</label>
+  <input id="email" type="email" name="email" autocomplete="email" aria-describedby="email-help">
+  <small id="email-help">We’ll only use this to reply.</small>
+</div>
+```
+
+## Group
+
+Provide a legend or accessible group name. Import: `molecules/field.css`.
+
+```html preview 220
+<fieldset role="group">
+  <legend>Search projects</legend>
+  <input type="search" name="query" aria-label="Project name">
+  <button type="button">Search</button>
+</fieldset>
+```
+
+## Card
+
+Use article for self-contained content. Import: `molecules/card.css`.
+
+```html preview 340
+<article>
+  <header><h3>Documentation</h3></header>
+  <p>Examples for every component.</p>
+  <footer><a href="#details">Read project details</a></footer>
+</article>
+<p id="details">Last updated today.</p>
+```
+
+## Status and error
+
+Live regions convey semantics, not visual variants. Insert updates when the app state changes. Import: `molecules/card.css`.
+
+```html preview 220
+<p role="status">Your changes have been saved.</p>
+<p role="alert">Upload failed. Check the connection and try again.</p>
+```
+
+## Accordion / disclosure
+
+Items expand independently. Import: `molecules/disclosure.css`.
+
+```html preview 320
+<details>
+  <summary>What is included?</summary>
+  <p>Native elements and useful compositions.</p>
+</details>
+<details open>
+  <summary>Does it require JavaScript?</summary>
+  <p>This disclosure works with native HTML alone.</p>
+</details>
+```
+
+## Navigation
+
+Ordinary navigation uses links; do not add role="menu". Import: `molecules/layout.css`.
+
+```html preview 250
+<nav aria-label="Project navigation">
+  <a href="#overview">Project</a>
+  <ul><li><a href="#overview">Overview</a></li><li><a href="#settings">Settings</a></li></ul>
+</nav>
+<p id="overview">Project overview</p>
+<p id="settings">Project settings</p>
+```
+
+## Dropdown
+
+A native disclosure with links. It does not implement arrow-key menu navigation or outside-click dismissal. Import: `molecules/disclosure.css`.
+
+```html preview 330
+<nav aria-label="Project actions">
+  <details>
+    <summary>Project actions</summary>
+    <ul><li><a href="#edit">Edit project</a></li><li><a href="#archive">Archive project</a></li></ul>
+  </details>
+</nav>
+<p id="edit">Edit destination</p>
+<p id="archive">Archive destination</p>
+```
+
+## Modal dialog
+
+The small application script opens the native dialog; the browser handles modal focus and Escape. Requires dialog support (Safari 15.4+). Import: `molecules/disclosure.css`.
+
+```html preview 340
 <button type="button" id="open">Edit project</button>
 <dialog id="edit" aria-labelledby="edit-title">
   <h2 id="edit-title">Edit project</h2>
+  <p>Update your project details.</p>
   <form method="dialog"><button>Done</button></form>
 </dialog>
+<script>
+  document.getElementById("open").addEventListener("click", function () {
+    document.getElementById("edit").showModal();
+  });
+</script>
 ```
 
-```js
-const dialog = document.getElementById("edit");
-document
-  .getElementById("open")
-  .addEventListener("click", () => dialog.showModal());
+## Loading
+
+CSS provides the indicator; your app manages the operation. Keep progress in text. Import: `atoms/button.css`.
+
+```html preview 190
+<button type="button" aria-busy="true" disabled>Saving…</button>
+<p role="status">Saving your changes. Please wait.</p>
 ```
 
-This is optional application code using a native browser API, not library runtime. The benchmark supports dialog; older engines need a polyfill or an inline alternative. Never make essential content accessible only through an unsupported modal.
+## Tooltip / nonessential hint
 
-## Hints
+Hover or focus the button. CSS hints do not provide robust touch activation or Escape dismissal. Never put essential instructions or the only accessible name in a tooltip. Import: `molecules/disclosure.css`.
 
-Prefer visible `<small>` text associated by `aria-describedby`. A native `title` or the optional `data-tooltip="Hint"` decoration must not contain essential instructions or be the sole accessible name. CSS-only hints do not implement Escape dismissal, robust touch activation, or a complete accessible tooltip pattern. They are included as a limited visual affordance, not a claim of full tooltip accessibility.
+```html preview 330
+<button type="button" aria-label="Save project" data-tooltip="Save project">Save</button>
+<p><abbr title="Hypertext Markup Language">HTML</abbr> uses a native title.</p>
+<label for="reference">Reference</label>
+<input id="reference" aria-describedby="reference-help">
+<small id="reference-help">Essential help stays visible.</small>
+```
+
+## Message
+
+Identify the author in text. Import: `molecules/message.css`.
+
+```html preview 350
+<article data-speaker="assistant">
+  <header><strong>Assistant</strong></header>
+  <p>How can I help?</p>
+</article>
+<article data-speaker="user">
+  <header><strong>You</strong></header>
+  <p>Let’s build something useful.</p>
+</article>
+```
+
+## Composer
+
+Your app supplies submission, cancellation and error recovery. This isolated form sends nothing to a provider. Import: `molecules/composer.css`.
+
+```html preview 330
+<form data-composer>
+  <label for="message">Your message</label>
+  <textarea id="message" name="message" required></textarea>
+  <div data-actions>
+    <small>Shift/Enter inserts a new line.</small>
+    <button type="submit">Send message</button>
+  </div>
+</form>
+```
+
+## Chat
+
+Import: `organisms/chat.css`. This specimen shows the composition; [open the interactive chat recipe](./chat.md) for application behaviour and JavaScript.
+
+```html preview 650
+<section data-de-gualle data-chat aria-labelledby="chat-title">
+  <header><h2 id="chat-title">Assistant</h2></header>
+  <ol aria-label="Conversation">
+    <li data-speaker="assistant">
+      <header><strong>Assistant</strong></header>
+      <p>How can I help?</p>
+    </li>
+    <li data-speaker="user">
+      <header><strong>You</strong></header>
+      <p>Let's build something useful.</p>
+    </li>
+  </ol>
+  <p role="status" aria-live="polite">Ready for your message.</p>
+  <form data-composer>
+    <label for="message">Your message</label>
+    <textarea id="message" name="message" required></textarea>
+    <div data-actions><button type="submit">Send message</button></div>
+  </form>
+</section>
+```
+
+## Dashboard
+
+Import: `organisms/dashboard.css`. This specimen shows the composition; [open the interactive dashboard recipe](./dashboard.md) for application behaviour and JavaScript.
+
+```html preview 650
+<section data-de-gualle data-dashboard aria-labelledby="overview-title">
+  <header><h1 id="overview-title">Overview</h1></header>
+  <dl>
+    <div>
+      <dt>Active projects</dt>
+      <dd>12</dd>
+    </div>
+    <div>
+      <dt>Tasks completed</dt>
+      <dd>148</dd>
+    </div>
+  </dl>
+  <form role="search">
+    <label for="query">Find a project</label>
+    <input id="query" name="query" type="search" />
+  </form>
+  <p role="status">3 projects shown.</p>
+  <div data-overflow tabindex="0" role="region" aria-label="Projects">
+    <table>
+      <caption>Recent projects</caption>
+      <thead>
+        <tr>
+          <th scope="col">Project</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Website refresh</th>
+          <td>In progress</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+```
 
 
 # File: dashboard.md
@@ -291,7 +504,7 @@ The dashboard organism uses a named section, definition-list metrics, a filterin
 import "de-gualle/organisms/dashboard.css";
 ```
 
-```html
+```html preview 650
 <section data-de-gualle data-dashboard aria-labelledby="overview-title">
   <header><h1 id="overview-title">Overview</h1></header>
   <dl>
@@ -342,107 +555,216 @@ Keep essential status in text. Busy indicators are decorative supplements, not t
 
 # File: elements.md
 
-# HTML, with thoughtful defaults.
+# Elements: live examples and HTML
 
-Atoms are native elements. Type, controls and supporting text share the same design variables and sizing system.
+Every specimen below uses the published global stylesheet. The preview renders the exact HTML shown beneath it; use **Copy HTML** to take the snippet. Native controls remain interactive. These are isolated specimens, not connected forms.
 
-[Open the complete living specimen →](/examples/elements.html)
+[Open the complete element specimen →](/examples/elements.html)
 
-## Content
 
-Headings `h1`–`h6`, paragraphs, links, ordered/unordered/definition lists, emphasis, small text, marks, inline code, keyboard notation, preformatted code, quotes, dividers, figures, captions and responsive media are styled. Preserve a logical heading hierarchy.
+## Headings
 
-## Inputs and forms
+Keep a logical heading order in real documents.
 
-All native input types retain browser behaviour. Text-like inputs, textarea and select have a shared skin. Checkbox, radio, range, colour, file and button inputs receive appropriate specialised rules. Hidden inputs remain hidden. Unsupported input types fall back to the browser's native rendering.
-
-```html
-<div data-field>
-  <label for="email">Email address</label>
-  <input
-    id="email"
-    type="email"
-    name="email"
-    required
-    autocomplete="email"
-    aria-describedby="email-help"
-  />
-  <small id="email-help">We'll only use this to reply.</small>
-</div>
+```html preview 420
+<h1>Heading one</h1>
+<h2>Heading two</h2>
+<h3>Heading three</h3>
+<h4>Heading four</h4>
+<h5>Heading five</h5>
+<h6>Heading six</h6>
 ```
 
-Use `label` rather than placeholder text as the control name. `name` determines submitted data. Use `autocomplete`, `inputmode`, and appropriate input types to improve keyboards and autofill.
+## Text and links
 
-```html
+Use descriptive links and keep essential instructions visible.
+
+```html preview 260
+<p>A paragraph with <strong>strong emphasis</strong>, <em>emphasis</em>,
+  <mark>highlighting</mark>, <del>removed</del> and <ins>inserted</ins> text.</p>
+<p><a href="#details">Jump to details</a> · <small>Supporting text</small></p>
+<p><abbr title="Hypertext Markup Language">HTML</abbr>, H<sub>2</sub>O and 2<sup>3</sup>.</p>
+<p id="details">Details stay in the document.</p>
+```
+
+## Lists
+
+Ordered, unordered and definition lists retain native semantics.
+
+```html preview 330
+<ul><li>Design</li><li>Build</li></ul>
+<ol><li>Open a project</li><li>Save changes</li></ol>
+<dl><dt>Atom</dt><dd>A native element.</dd></dl>
+```
+
+## Quotes and dividers
+
+
+
+```html preview 230
+<blockquote><p>Start with meaningful HTML.</p><footer>— A practical principle</footer></blockquote>
+<hr>
+<p>A new section follows.</p>
+```
+
+## Code and keyboard notation
+
+Preformatted blocks scroll when the code is wider than its container.
+
+```html preview 200
+<p>Use <code>data-size="md"</code>. Press <kbd>Tab</kbd> to move focus.</p>
+<pre><code>&lt;button type="button"&gt;Save&lt;/button&gt;</code></pre>
+```
+
+## Figures and media
+
+Images, video and audio keep native rendering. Add your own media sources and captions; the players here deliberately have no recording.
+
+```html preview 400
+<figure>
+  <img src="../tomato.svg" width="120" height="120" alt="A red tomato">
+  <figcaption>The de-gualle tomato.</figcaption>
+</figure>
+<video controls aria-label="Video player"></video>
+<audio controls aria-label="Audio player"></audio>
+```
+
+## Buttons and navigation links
+
+Buttons perform actions; anchors navigate. Keep the correct element for its job.
+
+```html preview 260
+<div data-actions>
+  <button type="button">Save</button>
+  <button type="button" data-variant="secondary">Cancel</button>
+  <button type="button" data-variant="danger">Delete</button>
+  <button type="button" disabled>Unavailable</button>
+  <a href="#destination" data-variant="primary">View project</a>
+</div>
+<p id="destination">Project destination</p>
+```
+
+## Text inputs
+
+Always provide labels. Input types improve keyboards and validation.
+
+```html preview 730
+<label>Name <input name="name" autocomplete="name" placeholder="Alex Chen"></label>
+<label>Email <input type="email" name="email" autocomplete="email"></label>
+<label>Password <input type="password" name="password" autocomplete="new-password"></label>
+<label>Search <input type="search" name="query"></label>
+<label>Telephone <input type="tel" name="phone" autocomplete="tel"></label>
+<label>Website <input type="url" name="website" placeholder="https://example.com"></label>
+```
+
+## Numbers and dates
+
+Unsupported input types use the browser’s fallback. Native picker appearance varies by browser.
+
+```html preview 730
+<label>Quantity <input type="number" min="1" max="10" value="3"></label>
+<label>Date <input type="date"></label>
+<label>Time <input type="time"></label>
+<label>Appointment <input type="datetime-local"></label>
+<label>Month <input type="month"></label>
+<label>Week <input type="week"></label>
+```
+
+## Textarea and select
+
+
+
+```html preview 480
+<label>Notes <textarea name="notes" rows="3">A little more context.</textarea></label>
+<label>Project <select name="project"><option>Website</option><option>Documentation</option></select></label>
+<label>Topics <select name="topics" multiple size="3"><option selected>Design</option><option>Development</option><option>Writing</option></select></label>
+```
+
+## Checkbox, radio and switch
+
+A switch is still a checkbox. Group related choices with a legend.
+
+```html preview 390
 <fieldset>
-  <legend>Contact preference</legend>
-  <label>
-    <input type="radio" name="contact" value="email" checked />
-    Email
-  </label>
-  <label>
-    <input type="radio" name="contact" value="phone" />
-    Phone
-  </label>
+  <legend>Notifications</legend>
+  <label><input type="checkbox" name="email" checked> Email updates</label>
+  <label><input type="checkbox" role="switch" name="alerts"> Alerts</label>
+  <label><input type="checkbox" disabled> Unavailable</label>
+</fieldset>
+<fieldset>
+  <legend>Plan</legend>
+  <label><input type="radio" name="plan" value="personal" checked> Personal</label>
+  <label><input type="radio" name="plan" value="team"> Team</label>
 </fieldset>
 ```
 
-An optional switch is still a native checkbox:
+## Range, colour and file
 
-```html
-<label>
-  <input type="checkbox" role="switch" name="notifications" />
-  Notifications
-</label>
+File selection stays local to this example; nothing is uploaded.
+
+```html preview 340
+<label>Volume <input type="range" min="0" max="100" value="60"></label>
+<label>Accent <input type="color" value="#c44332"></label>
+<label>Attachment <input type="file" name="attachment"></label>
 ```
 
-## Buttons
+## Input buttons and hidden fields
 
-```html
-<button type="submit">Save changes</button>
-<button type="button" data-variant="secondary">Cancel</button>
-<button type="button" data-variant="danger">Delete project</button>
-<button type="button" aria-busy="true" disabled>Saving…</button>
+Hidden fields remain hidden. These sample forms have no backend.
+
+```html preview 270
+<form>
+  <input type="hidden" name="project-id" value="42">
+  <label>Project <input name="project" value="Documentation"></label>
+  <div data-actions>
+    <input type="button" value="Action">
+    <input type="reset" value="Reset">
+    <input type="submit" value="Submit">
+  </div>
+</form>
 ```
 
-Use a button for an action and an anchor with `href` for navigation. For a visually prominent navigation link, use `data-variant="primary"` or `"secondary"` on the anchor. It stays a link with normal link keyboard behaviour; do not give navigation a button role.
+## Validation, disabled and read-only
+
+Set aria-invalid after validation. Disabled fields are not submitted; read-only fields can be copied and submitted.
+
+```html preview 630
+<label for="email">Email</label>
+<input id="email" type="email" value="incomplete" aria-invalid="true" aria-describedby="email-error">
+<small id="email-error">Enter a complete email address.</small>
+<label>Validated <input value="alex@example.com" aria-invalid="false"></label>
+<label>Unavailable <input value="Not available" disabled></label>
+<label>Reference <input value="DG-014" readonly></label>
+<label>Required, untouched <input name="required" required></label>
+```
 
 ## Tables
 
-```html
-<div data-overflow tabindex="0" role="region" aria-label="Project table">
+The focusable wrapper scrolls wide tables without losing row/column relationships.
+
+```html preview 270
+<div data-overflow tabindex="0" role="region" aria-label="Projects">
   <table>
     <caption>Recent projects</caption>
-    <thead>
-      <tr>
-        <th scope="col">Project</th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Website refresh</th>
-        <td>In progress</td>
-      </tr>
-    </tbody>
+    <thead><tr><th scope="col">Project</th><th scope="col">Status</th></tr></thead>
+    <tbody><tr><th scope="row">Website refresh</th><td>In progress</td></tr></tbody>
+    <tfoot><tr><th scope="row">Total</th><td>1 project</td></tr></tfoot>
   </table>
 </div>
 ```
 
-The wrapper makes wide data horizontally scrollable and keyboard accessible. Do not turn table rows into arbitrary mobile cards; keep their relationships intact.
-
 ## Progress and meter
 
-```html
+Progress describes work; meter describes a known measurement. Omit progress value for an indeterminate state.
+
+```html preview 330
 <label for="upload">Upload</label>
 <progress id="upload" max="100" value="40">40%</progress>
+<label for="pending">Preparing</label>
+<progress id="pending" max="100">Preparing…</progress>
 <label for="storage">Storage</label>
 <meter id="storage" min="0" max="100" value="65">65%</meter>
 ```
-
-Omitting `value` on `progress` creates indeterminate progress. `meter` describes a known measurement, not a loading operation.
-
-<Demo src="/examples/elements.html" title="Native element specimen" height="650" />
 
 
 # File: get-started.md

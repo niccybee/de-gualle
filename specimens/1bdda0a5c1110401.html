@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>de-gualle component specimen</title>
+<link rel="stylesheet" href="../css/de-gualle.css">
+<style>body{margin:0;padding:1rem}body>main{padding:0}body>:first-child{margin-top:0}</style>
+</head><body data-size="md"><section data-de-gualle data-chat aria-labelledby="chat-title">
+  <header><h2 id="chat-title">Assistant</h2></header>
+  <ol aria-label="Conversation">
+    <li data-speaker="assistant">
+      <header><strong>Assistant</strong></header>
+      <p>How can I help?</p>
+    </li>
+    <li data-speaker="user">
+      <header><strong>You</strong></header>
+      <p>Let's build something useful.</p>
+    </li>
+  </ol>
+  <p role="status" aria-live="polite">Ready for your message.</p>
+  <form data-composer>
+    <label for="message">Your message</label>
+    <textarea id="message" name="message" required></textarea>
+    <div data-actions><button type="submit">Send message</button></div>
+  </form>
+</section>
+</body></html>

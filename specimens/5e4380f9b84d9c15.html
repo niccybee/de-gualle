@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>de-gualle component specimen</title>
+<link rel="stylesheet" href="../css/de-gualle.css">
+<style>body{margin:0;padding:1rem}body>main{padding:0}body>:first-child{margin-top:0}</style>
+</head><body data-size="md"><button type="button" id="open">Edit project</button>
+<dialog id="edit" aria-labelledby="edit-title">
+  <h2 id="edit-title">Edit project</h2>
+  <p>Update your project details.</p>
+  <form method="dialog"><button>Done</button></form>
+</dialog>
+<script>
+  document.getElementById("open").addEventListener("click", function () {
+    document.getElementById("edit").showModal();
+  });
+</script>
+</body></html>
