@@ -46,6 +46,14 @@ import "de-gualle/scoped.css";
 
 The package is prepared locally; no registry release or CDN URL is claimed. To try it in another project, use `ni /absolute/path/to/pico-v2`, or create a tarball with `na pm pack`. The prepack script generates CSS.
 
+## Documentation specimens
+
+The Elements and Components pages provide isolated live previews and **Copy HTML** controls. Each preview, visible code block and copied snippet comes from the same `html preview` fenced block in the Markdown source. An optional number after `preview` sets the frame height in pixels.
+
+Edit the Markdown in `docs/` on `main`, rather than generated HTML. The build recreates `docs/public/specimens/` from the current fences so edited or removed examples cannot leave obsolete published pages. The `gh-pages` branch is generated deployment output, not an authoring source.
+
+These preview and clipboard interactions belong to the documentation site; the CSS library still has no required JavaScript runtime. `nr check` verifies the specimen set as well as CSS, themes, exports, links and assets.
+
 ## Documentation deployment
 
 Live documentation: [niccybee.github.io/de-gualle](https://niccybee.github.io/de-gualle/).

@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir, cp, readdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, cp, readdir, rm } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import postcss from "postcss";
@@ -138,6 +138,7 @@ async function build() {
     ),
   );
   // Generate isolated specimens from the same fenced HTML shown in the docs.
+  await rm("docs/public/specimens", { recursive: true, force: true });
   await mkdir("docs/public/specimens", { recursive: true });
   for (const name of docs) {
     const markdown = await readFile(`docs/${name}`, "utf8");

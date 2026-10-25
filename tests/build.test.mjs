@@ -1,6 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import postcss from "postcss";
 import { compileSelectors, resolveDependencies } from "../scripts/build.mjs";
 
@@ -61,5 +63,37 @@ test("package entry points resolve to built files and default to scoped CSS", as
       "utf8",
     );
     assert.ok(contents.length > 0, specifier);
+  }
+});
+
+test("specimen builds publish only examples present in the current docs", async () => {
+  const directory = "docs/public/specimens";
+  const obsolete = `${directory}/obsolete-preview.html`;
+  await mkdir(directory, { recursive: true });
+  await writeFile(obsolete, "Obsolete generated example");
+  try {
+    const result = spawnSync(process.execPath, ["scripts/build.mjs"], {
+      encoding: "utf8",
+    });
+    assert.equal(result.status, 0, result.stderr || result.stdout);
+    const expected = new Set();
+    for (const name of (await readdir("docs")).filter((name) =>
+      name.endsWith(".md"),
+    )) {
+      const markdown = await readFile(`docs/${name}`, "utf8");
+      for (const match of markdown.matchAll(
+        /```html preview[^\n]*\n([\s\S]*?)```/g,
+      )) {
+        const hash = createHash("sha256")
+          .update(match[1])
+          .digest("hex")
+          .slice(0, 16);
+        expected.add(`${hash}.html`);
+      }
+    }
+    assert.ok(expected.size > 0, "No preview examples found in the docs");
+    assert.deepEqual(new Set(await readdir(directory)), expected);
+  } finally {
+    await rm(obsolete, { force: true });
   }
 });

@@ -2,12 +2,12 @@
 
 This page records evidence, not intended support. The physical iPhone 7 check remains pending.
 
-Initial verification: **24 October 2026**. Run `nr check` for the repeatable colour, scoping, package-export and production-build checks.
+Initial verification: **24 October 2026**; specimen reconciliation: **25 October 2026**. Run `nr check` for the repeatable colour, scoping, package-export, specimen and production-build checks.
 
 | Check                     | Evidence / result                                                                                                                                                                                              |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CSS build                 | Global and scoped bundles; 13 scoped entries with dependencies; readable and minified versions; Safari 15.4 compilation target                                                                                 |
-| Automated checks          | Seven tests: HEX validation/injection rejection, contrast pairs, deterministic scale/export, dependency closure, selector boundaries, package exports                                                          |
+| Automated checks          | Eight tests: HEX validation/injection rejection, contrast pairs, deterministic scale/export, dependency closure, selector boundaries, package exports, and removal of obsolete generated specimens             |
 | Palette coverage          | 74 seed cases (including black, white, yellow and an RGB grid), in both light and dark modes; selected text/action pairs meet 4.5:1                                                                            |
 | Production documentation  | All 13 pages checked at 375 × 667 in Chrome 155.0.8059.86; one main heading per page; no horizontal document overflow or runtime/HTTP failures during the pass                                                 |
 | Chat                      | Chrome and Playwright WebKit 26.6: sending, safe text rendering, stopping, retry without duplicated prompts, unavailable drafts, code responses, dark mobile layout and minimum control sizing passed          |
@@ -18,9 +18,13 @@ Initial verification: **24 October 2026**. Run `nr check` for the repeatable col
 
 Browser check scripts and screenshots are local development artifacts under `output/playwright/` (git-ignored). Browser actions were performed through Playwright CLI. Viewport sizing is not device emulation of iOS Safari. These checks are focused functional evidence, not a comprehensive accessibility audit.
 
-## Still requires device or external verification
+## Published documentation
 
-GitHub Pages deployment verified on **25 October 2026**: the public site is served from the compiled `gh-pages` branch. Root and project-path builds validate links and assets across all 17 generated HTML pages, including standalone recipes. Standalone examples explicitly use native navigation rather than VitePress client routing.
+GitHub Pages deployment verified on **25 October 2026**: the public site is served from the compiled `gh-pages` branch. The source on `main` includes the live specimens and copyable HTML introduced in `c88dac9`. Project-path builds validate links and assets across all **51 generated HTML pages**, including 34 isolated specimens. Standalone examples explicitly use native navigation rather than VitePress client routing.
+
+The documentation enhancement preserves semantic/classless HTML, the atomic component organisation, scoped package exports, theme/sizing behaviour and the Safari 15.4 compilation target. Copy and dialog interactions are documentation/example behaviour, not library runtime requirements.
+
+## Still requires device or external verification
 
 - Physical iPhone 7 with its latest iOS 15 update: real keyboard, touch, orientation, scroll behaviour, zoom, larger text, reduced motion and VoiceOver.
 - Safari 15.4 itself, current Firefox and Edge. Current WebKit passing does not prove older Safari passes.
