@@ -775,6 +775,8 @@ Browser check scripts and screenshots are local development artifacts under `out
 
 ## Still requires device or external verification
 
+GitHub Pages deployment verified on **25 October 2026**: the public site is served from the compiled `gh-pages` branch. Root and project-path builds validate links and assets across all 17 generated HTML pages, including standalone recipes. Standalone examples explicitly use native navigation rather than VitePress client routing.
+
 - Physical iPhone 7 with its latest iOS 15 update: real keyboard, touch, orientation, scroll behaviour, zoom, larger text, reduced motion and VoiceOver.
 - Safari 15.4 itself, current Firefox and Edge. Current WebKit passing does not prove older Safari passes.
 - Windows forced-colour behaviour and assistive technology across browsers.
