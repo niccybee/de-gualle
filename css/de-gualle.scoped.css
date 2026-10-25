@@ -1,0 +1,956 @@
+/*! de-gualle v0.1.0 | MIT | 🍅 Semantic HTML, thoughtful defaults. */
+:where([data-de-gualle]) {
+  --lightningcss-light: initial;
+  --lightningcss-dark: ;
+  color-scheme: light;
+  --dg-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --dg-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --dg-font-size: clamp(1rem, .95rem + .22vw, 1.125rem);
+  --dg-space: clamp(.9rem, .72rem + .65vw, 1.4rem);
+  --dg-radius: .3rem;
+  --dg-line-height: 1.6;
+  --dg-measure: 76rem;
+  font-family: var(--dg-font);
+  font-size: var(--dg-font-size);
+  line-height: var(--dg-line-height);
+  color: var(--dg-text);
+  background: var(--dg-background);
+  -webkit-text-size-adjust: 100%;
+  overflow-wrap: break-word;
+}
+
+:where([data-de-gualle])[data-size="sm"] {
+  --dg-font-size: .9375rem;
+  --dg-space: .75rem;
+}
+
+:where([data-de-gualle])[data-size="md"] {
+  --dg-font-size: 1rem;
+  --dg-space: 1rem;
+}
+
+:where([data-de-gualle])[data-size="lg"] {
+  --dg-font-size: 1.125rem;
+  --dg-space: 1.5rem;
+}
+
+:where([data-de-gualle])[data-size="natural"] {
+  --dg-font-size: clamp(1rem, .95rem + .22vw, 1.125rem);
+  --dg-space: clamp(.9rem, .72rem + .65vw, 1.4rem);
+}
+
+:where([data-de-gualle]) *, :where([data-de-gualle]):is(*), :where([data-de-gualle]) :before, :where([data-de-gualle]):is(*):before, :where([data-de-gualle]) :after, :where([data-de-gualle]):is(*):after {
+  box-sizing: border-box;
+}
+
+:where([data-de-gualle]) [hidden], :where([data-de-gualle])[hidden] {
+  display: none !important;
+}
+
+:where([data-de-gualle]) :focus, :where([data-de-gualle]):focus {
+  outline: 2px solid var(--dg-focus);
+  outline-offset: 3px;
+}
+
+:where([data-de-gualle]) :focus:not(:focus-visible), :where([data-de-gualle]):focus:not(:focus-visible) {
+  outline: none;
+}
+
+:where([data-de-gualle]) :focus-visible, :where([data-de-gualle]):focus-visible {
+  outline: 2px solid var(--dg-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where([data-de-gualle]) *, :where([data-de-gualle]):is(*), :where([data-de-gualle]) :before, :where([data-de-gualle]):is(*):before, :where([data-de-gualle]) :after, :where([data-de-gualle]):is(*):after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :where([data-de-gualle]) button, :where([data-de-gualle]):is(button), :where([data-de-gualle]) input, :where([data-de-gualle]):is(input), :where([data-de-gualle]) textarea, :where([data-de-gualle]):is(textarea), :where([data-de-gualle]) select, :where([data-de-gualle]):is(select) {
+    border: 1px solid buttontext;
+  }
+
+  :where([data-de-gualle]) :focus, :where([data-de-gualle]):focus {
+    outline-color: highlight;
+  }
+}
+
+:where([data-de-gualle]) {
+  --dg-primary-50: #fdf7f7;
+  --dg-primary-100: #f9eceb;
+  --dg-primary-200: #f0d0cc;
+  --dg-primary-300: #e4aaa3;
+  --dg-primary-400: #d5786b;
+  --dg-primary-500: #c44332;
+  --dg-primary-600: #a93a2b;
+  --dg-primary-700: #892f23;
+  --dg-primary-800: #66231a;
+  --dg-primary-900: #431711;
+  --dg-primary-950: #230c09;
+  --dg-brand: #c44332;
+  --dg-background: #faf9f6;
+  --dg-surface: #fff;
+  --dg-surface-muted: #efeee9;
+  --dg-text: #242923;
+  --dg-muted: #62685e;
+  --dg-border: #81877b;
+  --dg-divider: #dedfd6;
+  --dg-primary: #c44332;
+  --dg-on-primary: #fff;
+  --dg-primary-hover: #ac3b2c;
+  --dg-on-primary-hover: #fff;
+  --dg-tint: #fbf4f3;
+  --dg-error: #a72620;
+  --dg-success: #24613b;
+  --dg-warning: #795100;
+  --dg-focus: #c44332;
+}
+
+@media (prefers-color-scheme: dark) {
+  :where([data-de-gualle]):not([data-theme="light"]) {
+    --lightningcss-light: ;
+    --lightningcss-dark: initial;
+    color-scheme: dark;
+    --dg-primary-50: #fdf7f7;
+    --dg-primary-100: #f9eceb;
+    --dg-primary-200: #f0d0cc;
+    --dg-primary-300: #e4aaa3;
+    --dg-primary-400: #d5786b;
+    --dg-primary-500: #c44332;
+    --dg-primary-600: #a93a2b;
+    --dg-primary-700: #892f23;
+    --dg-primary-800: #66231a;
+    --dg-primary-900: #431711;
+    --dg-primary-950: #230c09;
+    --dg-brand: #c44332;
+    --dg-background: #191c1b;
+    --dg-surface: #222624;
+    --dg-surface-muted: #2c322e;
+    --dg-text: #f2f3ee;
+    --dg-muted: #b1b9b1;
+    --dg-border: #737e74;
+    --dg-divider: #3b443d;
+    --dg-primary: #d26f63;
+    --dg-on-primary: #000;
+    --dg-primary-hover: #d78076;
+    --dg-on-primary-hover: #000;
+    --dg-tint: #392a26;
+    --dg-error: #ffb4ab;
+    --dg-success: #9bd8af;
+    --dg-warning: #efce8c;
+    --dg-focus: #d26f63;
+  }
+}
+
+:where([data-de-gualle])[data-theme="dark"] {
+  --lightningcss-light: ;
+  --lightningcss-dark: initial;
+  color-scheme: dark;
+  --dg-primary-50: #fdf7f7;
+  --dg-primary-100: #f9eceb;
+  --dg-primary-200: #f0d0cc;
+  --dg-primary-300: #e4aaa3;
+  --dg-primary-400: #d5786b;
+  --dg-primary-500: #c44332;
+  --dg-primary-600: #a93a2b;
+  --dg-primary-700: #892f23;
+  --dg-primary-800: #66231a;
+  --dg-primary-900: #431711;
+  --dg-primary-950: #230c09;
+  --dg-brand: #c44332;
+  --dg-background: #191c1b;
+  --dg-surface: #222624;
+  --dg-surface-muted: #2c322e;
+  --dg-text: #f2f3ee;
+  --dg-muted: #b1b9b1;
+  --dg-border: #737e74;
+  --dg-divider: #3b443d;
+  --dg-primary: #d26f63;
+  --dg-on-primary: #000;
+  --dg-primary-hover: #d78076;
+  --dg-on-primary-hover: #000;
+  --dg-tint: #392a26;
+  --dg-error: #ffb4ab;
+  --dg-success: #9bd8af;
+  --dg-warning: #efce8c;
+  --dg-focus: #d26f63;
+}
+
+:where([data-de-gualle])[data-theme="light"] {
+  --lightningcss-light: initial;
+  --lightningcss-dark: ;
+  color-scheme: light;
+  --dg-primary-50: #fdf7f7;
+  --dg-primary-100: #f9eceb;
+  --dg-primary-200: #f0d0cc;
+  --dg-primary-300: #e4aaa3;
+  --dg-primary-400: #d5786b;
+  --dg-primary-500: #c44332;
+  --dg-primary-600: #a93a2b;
+  --dg-primary-700: #892f23;
+  --dg-primary-800: #66231a;
+  --dg-primary-900: #431711;
+  --dg-primary-950: #230c09;
+  --dg-brand: #c44332;
+  --dg-background: #faf9f6;
+  --dg-surface: #fff;
+  --dg-surface-muted: #efeee9;
+  --dg-text: #242923;
+  --dg-muted: #62685e;
+  --dg-border: #81877b;
+  --dg-divider: #dedfd6;
+  --dg-primary: #c44332;
+  --dg-on-primary: #fff;
+  --dg-primary-hover: #ac3b2c;
+  --dg-on-primary-hover: #fff;
+  --dg-tint: #fbf4f3;
+  --dg-error: #a72620;
+  --dg-success: #24613b;
+  --dg-warning: #795100;
+  --dg-focus: #c44332;
+}
+
+:where([data-de-gualle]) h1, :where([data-de-gualle]):is(h1), :where([data-de-gualle]) h2, :where([data-de-gualle]):is(h2), :where([data-de-gualle]) h3, :where([data-de-gualle]):is(h3), :where([data-de-gualle]) h4, :where([data-de-gualle]):is(h4), :where([data-de-gualle]) h5, :where([data-de-gualle]):is(h5), :where([data-de-gualle]) h6, :where([data-de-gualle]):is(h6) {
+  letter-spacing: -.025em;
+  text-wrap: pretty;
+  margin-block: calc(var(--dg-space) * 1.8) var(--dg-space);
+  line-height: 1.2;
+}
+
+:where([data-de-gualle]) h1, :where([data-de-gualle]):is(h1) {
+  font-size: 2.5em;
+  font-weight: 720;
+}
+
+:where([data-de-gualle]) h2, :where([data-de-gualle]):is(h2) {
+  font-size: 1.75em;
+}
+
+:where([data-de-gualle]) h3, :where([data-de-gualle]):is(h3) {
+  font-size: 1.3em;
+}
+
+:where([data-de-gualle]) h4, :where([data-de-gualle]):is(h4) {
+  font-size: 1.125em;
+}
+
+:where([data-de-gualle]) p, :where([data-de-gualle]):is(p), :where([data-de-gualle]) ul, :where([data-de-gualle]):is(ul), :where([data-de-gualle]) ol, :where([data-de-gualle]):is(ol), :where([data-de-gualle]) dl, :where([data-de-gualle]):is(dl), :where([data-de-gualle]) pre, :where([data-de-gualle]):is(pre), :where([data-de-gualle]) blockquote, :where([data-de-gualle]):is(blockquote), :where([data-de-gualle]) figure, :where([data-de-gualle]):is(figure), :where([data-de-gualle]) table, :where([data-de-gualle]):is(table) {
+  margin-block: 0 var(--dg-space);
+}
+
+:where([data-de-gualle]) small, :where([data-de-gualle]):is(small) {
+  color: var(--dg-muted);
+  font-size: .85em;
+}
+
+:where([data-de-gualle]) a, :where([data-de-gualle]):is(a) {
+  color: var(--dg-primary);
+  text-underline-offset: .18em;
+  text-decoration-thickness: .08em;
+}
+
+:where([data-de-gualle]) a:hover, :where([data-de-gualle]):is(a:hover) {
+  text-decoration-thickness: .14em;
+}
+
+:where([data-de-gualle]) strong, :where([data-de-gualle]):is(strong), :where([data-de-gualle]) b, :where([data-de-gualle]):is(b) {
+  font-weight: 680;
+}
+
+:where([data-de-gualle]) mark, :where([data-de-gualle]):is(mark) {
+  background: var(--dg-tint);
+  color: var(--dg-text);
+  padding: .1em .25em;
+}
+
+:where([data-de-gualle]) code, :where([data-de-gualle]):is(code), :where([data-de-gualle]) kbd, :where([data-de-gualle]):is(kbd), :where([data-de-gualle]) samp, :where([data-de-gualle]):is(samp), :where([data-de-gualle]) pre, :where([data-de-gualle]):is(pre) {
+  font-family: var(--dg-mono);
+  font-size: .875em;
+}
+
+:where([data-de-gualle]) code, :where([data-de-gualle]):is(code), :where([data-de-gualle]) kbd, :where([data-de-gualle]):is(kbd) {
+  background: var(--dg-surface-muted);
+  border-radius: var(--dg-radius);
+  padding: .15em .35em;
+}
+
+:where([data-de-gualle]) pre, :where([data-de-gualle]):is(pre) {
+  background: var(--dg-surface-muted);
+  padding: var(--dg-space);
+  border-radius: var(--dg-radius);
+  overflow: auto;
+}
+
+:where([data-de-gualle]) pre code, :where([data-de-gualle]):is(pre code) {
+  font-size: inherit;
+  background: none;
+  padding: 0;
+}
+
+:where([data-de-gualle]) blockquote, :where([data-de-gualle]):is(blockquote) {
+  border-inline-start: 3px solid var(--dg-border);
+  color: var(--dg-muted);
+  margin-inline: 0;
+  padding-inline-start: var(--dg-space);
+}
+
+:where([data-de-gualle]) hr, :where([data-de-gualle]):is(hr) {
+  border: 0;
+  border-block-start: 1px solid var(--dg-divider);
+  margin-block: calc(var(--dg-space) * 2);
+}
+
+:where([data-de-gualle]) dt, :where([data-de-gualle]):is(dt) {
+  font-weight: 650;
+}
+
+:where([data-de-gualle]) dd, :where([data-de-gualle]):is(dd) {
+  margin-block-end: .5em;
+  margin-inline-start: var(--dg-space);
+}
+
+:where([data-de-gualle]) img, :where([data-de-gualle]):is(img), :where([data-de-gualle]) video, :where([data-de-gualle]):is(video), :where([data-de-gualle]) svg, :where([data-de-gualle]):is(svg) {
+  block-size: auto;
+  max-inline-size: 100%;
+}
+
+:where([data-de-gualle]) figure, :where([data-de-gualle]):is(figure) {
+  margin-inline: 0;
+}
+
+:where([data-de-gualle]) figcaption, :where([data-de-gualle]):is(figcaption) {
+  color: var(--dg-muted);
+  font-size: .875em;
+}
+
+:where([data-de-gualle]) audio, :where([data-de-gualle]):is(audio) {
+  max-inline-size: 100%;
+}
+
+:where([data-de-gualle]) abbr[title], :where([data-de-gualle]):is(abbr[title]) {
+  cursor: help;
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+
+:where([data-de-gualle]) button, :where([data-de-gualle]):is(button), :where([data-de-gualle]) input[type="submit"], :where([data-de-gualle]):is(input[type="submit"]), :where([data-de-gualle]) input[type="button"], :where([data-de-gualle]):is(input[type="button"]), :where([data-de-gualle]) input[type="reset"], :where([data-de-gualle]):is(input[type="reset"]), :where([data-de-gualle]) a[data-variant], :where([data-de-gualle]):is(a[data-variant]) {
+  border-radius: var(--dg-radius);
+  background: var(--dg-primary);
+  min-block-size: 2.75rem;
+  color: var(--dg-on-primary);
+  font: inherit;
+  font-family: var(--dg-font);
+  font-size: var(--dg-font-size);
+  cursor: pointer;
+  vertical-align: middle;
+  appearance: none;
+  border: 1px solid #0000;
+  justify-content: center;
+  align-items: center;
+  gap: .5em;
+  padding: .6em 1.1em;
+  font-weight: 620;
+  line-height: 1.3;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+:where([data-de-gualle]) button:hover, :where([data-de-gualle]):is(button:hover), :where([data-de-gualle]) input[type="submit"]:hover, :where([data-de-gualle]):is(input[type="submit"]:hover), :where([data-de-gualle]) input[type="button"]:hover, :where([data-de-gualle]):is(input[type="button"]:hover), :where([data-de-gualle]) a[data-variant]:hover, :where([data-de-gualle]):is(a[data-variant]:hover) {
+  background: var(--dg-primary-hover);
+  color: var(--dg-on-primary-hover);
+}
+
+:where([data-de-gualle]) button[data-variant="secondary"], :where([data-de-gualle]):is(button[data-variant="secondary"]), :where([data-de-gualle]) a[data-variant="secondary"], :where([data-de-gualle]):is(a[data-variant="secondary"]), :where([data-de-gualle]) input[type="reset"], :where([data-de-gualle]):is(input[type="reset"]) {
+  background: var(--dg-surface);
+  color: var(--dg-text);
+  border-color: var(--dg-border);
+}
+
+:where([data-de-gualle]) button[data-variant="secondary"]:hover, :where([data-de-gualle]):is(button[data-variant="secondary"]:hover), :where([data-de-gualle]) a[data-variant="secondary"]:hover, :where([data-de-gualle]):is(a[data-variant="secondary"]:hover) {
+  background: var(--dg-surface-muted);
+}
+
+:where([data-de-gualle]) button[data-variant="danger"], :where([data-de-gualle]):is(button[data-variant="danger"]) {
+  background: var(--dg-error);
+  color: var(--dg-background);
+}
+
+:where([data-de-gualle]) button:disabled, :where([data-de-gualle]):is(button:disabled), :where([data-de-gualle]) input:disabled, :where([data-de-gualle]):is(input:disabled), :where([data-de-gualle]) a[data-variant][aria-disabled="true"], :where([data-de-gualle]):is(a[data-variant][aria-disabled="true"]), :where([data-de-gualle]) button[aria-disabled="true"], :where([data-de-gualle]):is(button[aria-disabled="true"]) {
+  cursor: not-allowed;
+  opacity: .58;
+}
+
+:where([data-de-gualle]) [aria-busy="true"], :where([data-de-gualle])[aria-busy="true"] {
+  cursor: progress;
+}
+
+:where([data-de-gualle]) button[aria-busy="true"]:before, :where([data-de-gualle]):is(button[aria-busy="true"]):before, :where([data-de-gualle]) a[data-variant][aria-busy="true"]:before, :where([data-de-gualle]):is(a[data-variant][aria-busy="true"]):before {
+  content: "";
+  border: 2px solid;
+  border-inline-end-color: #0000;
+  border-radius: 50%;
+  block-size: 1em;
+  inline-size: 1em;
+  animation: .8s linear infinite dg-spin;
+}
+
+@keyframes dg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:where([data-de-gualle]) input:not([type="hidden"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([type="reset"]), :where([data-de-gualle]):is(input:not([type="hidden"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([type="reset"])), :where([data-de-gualle]) textarea, :where([data-de-gualle]):is(textarea), :where([data-de-gualle]) select, :where([data-de-gualle]):is(select) {
+  border: 1px solid var(--dg-border);
+  border-radius: var(--dg-radius);
+  background: var(--dg-surface);
+  min-block-size: 2.75rem;
+  inline-size: 100%;
+  min-inline-size: 0;
+  color: var(--dg-text);
+  font: inherit;
+  font-family: var(--dg-font);
+  font-size: max(1rem, var(--dg-font-size));
+  padding: .65em .8em;
+  line-height: 1.5;
+  display: block;
+}
+
+:where([data-de-gualle]) input::placeholder, :where([data-de-gualle]):is(input)::placeholder, :where([data-de-gualle]) textarea::placeholder, :where([data-de-gualle]):is(textarea)::placeholder {
+  color: var(--dg-muted);
+  opacity: 1;
+}
+
+:where([data-de-gualle]) textarea, :where([data-de-gualle]):is(textarea) {
+  resize: vertical;
+  min-block-size: 6em;
+}
+
+:where([data-de-gualle]) input:disabled, :where([data-de-gualle]):is(input:disabled), :where([data-de-gualle]) textarea:disabled, :where([data-de-gualle]):is(textarea:disabled), :where([data-de-gualle]) select:disabled, :where([data-de-gualle]):is(select:disabled) {
+  background: var(--dg-surface-muted);
+  cursor: not-allowed;
+}
+
+:where([data-de-gualle]) input[readonly], :where([data-de-gualle]):is(input[readonly]), :where([data-de-gualle]) textarea[readonly], :where([data-de-gualle]):is(textarea[readonly]) {
+  background: var(--dg-surface-muted);
+  border-style: dashed;
+}
+
+:where([data-de-gualle]) input[aria-invalid="true"], :where([data-de-gualle]):is(input[aria-invalid="true"]), :where([data-de-gualle]) textarea[aria-invalid="true"], :where([data-de-gualle]):is(textarea[aria-invalid="true"]), :where([data-de-gualle]) select[aria-invalid="true"], :where([data-de-gualle]):is(select[aria-invalid="true"]) {
+  border: 2px solid var(--dg-error);
+}
+
+:where([data-de-gualle]) input[aria-invalid="false"], :where([data-de-gualle]):is(input[aria-invalid="false"]), :where([data-de-gualle]) textarea[aria-invalid="false"], :where([data-de-gualle]):is(textarea[aria-invalid="false"]), :where([data-de-gualle]) select[aria-invalid="false"], :where([data-de-gualle]):is(select[aria-invalid="false"]) {
+  border-color: var(--dg-success);
+}
+
+:where([data-de-gualle]) input[type="checkbox"], :where([data-de-gualle]):is(input[type="checkbox"]), :where([data-de-gualle]) input[type="radio"], :where([data-de-gualle]):is(input[type="radio"]) {
+  vertical-align: middle;
+  block-size: 1.2em;
+  inline-size: 1.2em;
+  accent-color: var(--dg-primary);
+  margin: .2em .5em .2em 0;
+}
+
+:where([data-de-gualle]) input[type="range"], :where([data-de-gualle]):is(input[type="range"]) {
+  min-block-size: 2.75rem;
+  inline-size: 100%;
+  accent-color: var(--dg-primary);
+}
+
+:where([data-de-gualle]) input[type="color"], :where([data-de-gualle]):is(input[type="color"]) {
+  cursor: pointer;
+  padding: .25em;
+}
+
+:where([data-de-gualle]) input[type="file"], :where([data-de-gualle]):is(input[type="file"]) {
+  overflow: hidden;
+}
+
+:where([data-de-gualle]) input::file-selector-button {
+  font: inherit;
+  border-radius: var(--dg-radius);
+  background: var(--dg-surface-muted);
+  color: var(--dg-text);
+  border: 0;
+  margin-inline-end: .7em;
+  padding: .35em .7em;
+}
+
+:where([data-de-gualle]):is(input)::file-selector-button {
+  font: inherit;
+  border-radius: var(--dg-radius);
+  background: var(--dg-surface-muted);
+  color: var(--dg-text);
+  border: 0;
+  margin-inline-end: .7em;
+  padding: .35em .7em;
+}
+
+:where([data-de-gualle]) input[role="switch"], :where([data-de-gualle]):is(input[role="switch"]) {
+  appearance: none;
+  border: 1px solid var(--dg-border);
+  background: var(--dg-surface-muted);
+  cursor: pointer;
+  border-radius: 2em;
+  block-size: 1.4em;
+  inline-size: 2.5em;
+  position: relative;
+}
+
+:where([data-de-gualle]) input[role="switch"]:before, :where([data-de-gualle]):is(input[role="switch"]):before {
+  content: "";
+  background: var(--dg-muted);
+  border-radius: 50%;
+  block-size: 1em;
+  inline-size: 1em;
+  display: block;
+  position: absolute;
+  inset-block-start: .13em;
+  inset-inline-start: .15em;
+}
+
+:where([data-de-gualle]) input[role="switch"]:checked, :where([data-de-gualle]):is(input[role="switch"]:checked) {
+  background: var(--dg-primary);
+}
+
+:where([data-de-gualle]) input[role="switch"]:checked:before, :where([data-de-gualle]):is(input[role="switch"]:checked):before {
+  background: var(--dg-on-primary);
+  inset-inline-start: 1.2em;
+}
+
+:where([data-de-gualle]) table, :where([data-de-gualle]):is(table) {
+  border-collapse: collapse;
+  text-align: start;
+  font-variant-numeric: tabular-nums;
+  inline-size: 100%;
+}
+
+:where([data-de-gualle]) caption, :where([data-de-gualle]):is(caption) {
+  text-align: start;
+  margin-block-end: .75em;
+  font-weight: 650;
+}
+
+:where([data-de-gualle]) th, :where([data-de-gualle]):is(th), :where([data-de-gualle]) td, :where([data-de-gualle]):is(td) {
+  border-block-end: 1px solid var(--dg-divider);
+  vertical-align: top;
+  padding: .8em;
+}
+
+:where([data-de-gualle]) th, :where([data-de-gualle]):is(th) {
+  background: var(--dg-surface-muted);
+  font-weight: 650;
+}
+
+:where([data-de-gualle]) tbody tr:hover, :where([data-de-gualle]):is(tbody tr:hover) {
+  background: var(--dg-tint);
+}
+
+:where([data-de-gualle]) [data-overflow], :where([data-de-gualle])[data-overflow] {
+  max-inline-size: 100%;
+  overflow-x: auto;
+}
+
+:where([data-de-gualle]) progress, :where([data-de-gualle]):is(progress), :where([data-de-gualle]) meter, :where([data-de-gualle]):is(meter) {
+  block-size: .7em;
+  inline-size: 100%;
+  margin-block: var(--dg-space);
+  accent-color: var(--dg-primary);
+  border-radius: var(--dg-radius);
+  border: 0;
+  display: block;
+  overflow: hidden;
+}
+
+:where([data-de-gualle]) progress::-webkit-progress-bar {
+  background: var(--dg-surface-muted);
+}
+
+:where([data-de-gualle]):is(progress)::-webkit-progress-bar {
+  background: var(--dg-surface-muted);
+}
+
+:where([data-de-gualle]) progress::-webkit-progress-value {
+  background: var(--dg-primary);
+}
+
+:where([data-de-gualle]):is(progress)::-webkit-progress-value {
+  background: var(--dg-primary);
+}
+
+:where([data-de-gualle]) progress::-moz-progress-bar {
+  background: var(--dg-primary);
+}
+
+:where([data-de-gualle]):is(progress)::-moz-progress-bar {
+  background: var(--dg-primary);
+}
+
+:where([data-de-gualle]) body, :where([data-de-gualle]):is(body) {
+  margin: 0;
+}
+
+:where([data-de-gualle]) body > header, :where([data-de-gualle]):is(body > header), :where([data-de-gualle]) body > main, :where([data-de-gualle]):is(body > main), :where([data-de-gualle]) body > footer, :where([data-de-gualle]):is(body > footer) {
+  inline-size: min(100% - 2 * var(--dg-space), var(--dg-measure));
+  padding-block: var(--dg-space);
+  margin-inline: auto;
+}
+
+:where([data-de-gualle]) main, :where([data-de-gualle]):is(main) {
+  min-inline-size: 0;
+}
+
+:where([data-de-gualle]) section, :where([data-de-gualle]):is(section) {
+  margin-block-end: calc(var(--dg-space) * 2);
+}
+
+:where([data-de-gualle]) nav, :where([data-de-gualle]):is(nav) {
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--dg-space);
+  flex-wrap: wrap;
+  display: flex;
+}
+
+:where([data-de-gualle]) nav ul, :where([data-de-gualle]):is(nav ul) {
+  align-items: center;
+  gap: var(--dg-space);
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+:where([data-de-gualle]) nav a, :where([data-de-gualle]):is(nav a) {
+  align-items: center;
+  min-block-size: 2.75rem;
+  display: inline-flex;
+}
+
+:where([data-de-gualle]) [data-grid], :where([data-de-gualle])[data-grid] {
+  gap: var(--dg-space);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  display: grid;
+}
+
+:where([data-de-gualle]) [data-stack] > * + *, :where([data-de-gualle]):is([data-stack] > * + *) {
+  margin-block-start: var(--dg-space);
+}
+
+:where([data-de-gualle]) [data-actions], :where([data-de-gualle])[data-actions] {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .65em;
+  display: flex;
+}
+
+:where([data-de-gualle]) form, :where([data-de-gualle]):is(form) {
+  margin-block-end: var(--dg-space);
+}
+
+:where([data-de-gualle]) label, :where([data-de-gualle]):is(label) {
+  margin-block-end: .5em;
+  font-weight: 550;
+  display: block;
+}
+
+:is(:where([data-de-gualle]) label:has(input[type="checkbox"]), :where([data-de-gualle]):is(label:has(input[type="checkbox"])), :where([data-de-gualle]) label:has(input[type="radio"]), :where([data-de-gualle]):is(label:has(input[type="radio"]))) {
+  align-items: center;
+  min-block-size: 2.75rem;
+  display: flex;
+}
+
+:where([data-de-gualle]) label > input, :where([data-de-gualle]):is(label > input), :where([data-de-gualle]) label > textarea, :where([data-de-gualle]):is(label > textarea), :where([data-de-gualle]) label > select, :where([data-de-gualle]):is(label > select) {
+  margin-block-start: .4em;
+}
+
+:where([data-de-gualle]) label + input, :where([data-de-gualle]):is(label + input), :where([data-de-gualle]) label + textarea, :where([data-de-gualle]):is(label + textarea), :where([data-de-gualle]) label + select, :where([data-de-gualle]):is(label + select) {
+  margin-block-end: .5em;
+}
+
+:where([data-de-gualle]) fieldset, :where([data-de-gualle]):is(fieldset) {
+  min-inline-size: 0;
+  margin: 0 0 var(--dg-space);
+  padding: var(--dg-space);
+  border: 1px solid var(--dg-divider);
+  border-radius: var(--dg-radius);
+}
+
+:where([data-de-gualle]) legend, :where([data-de-gualle]):is(legend) {
+  padding-inline: .4em;
+  font-weight: 650;
+}
+
+:where([data-de-gualle]) form > * + label, :where([data-de-gualle]):is(form > * + label) {
+  margin-block-start: var(--dg-space);
+}
+
+:where([data-de-gualle]) [data-field], :where([data-de-gualle])[data-field] {
+  margin-block-end: var(--dg-space);
+}
+
+:where([data-de-gualle]) [data-field] > small, :where([data-de-gualle]):is([data-field] > small) {
+  margin-block-start: .4em;
+  display: block;
+}
+
+:where([data-de-gualle]) [data-field] > [role="alert"], :where([data-de-gualle]):is([data-field] > [role="alert"]) {
+  color: var(--dg-error);
+}
+
+:where([data-de-gualle]) [role="group"], :where([data-de-gualle])[role="group"] {
+  align-items: end;
+  gap: .5em;
+  display: flex;
+}
+
+:where([data-de-gualle]) [role="group"] > input, :where([data-de-gualle]):is([role="group"] > input), :where([data-de-gualle]) [role="group"] > textarea, :where([data-de-gualle]):is([role="group"] > textarea) {
+  flex: 1;
+  inline-size: 0;
+}
+
+:where([data-de-gualle]) fieldset[role="group"], :where([data-de-gualle]):is(fieldset[role="group"]) {
+  border: 0;
+  padding: 0;
+}
+
+:where([data-de-gualle]) article, :where([data-de-gualle]):is(article) {
+  background: var(--dg-surface);
+  border: 1px solid var(--dg-divider);
+  border-radius: var(--dg-radius);
+  padding: calc(var(--dg-space) * 1.25);
+  margin-block-end: var(--dg-space);
+}
+
+:where([data-de-gualle]) article > header, :where([data-de-gualle]):is(article > header) {
+  margin-block-end: var(--dg-space);
+}
+
+:where([data-de-gualle]) article > footer, :where([data-de-gualle]):is(article > footer) {
+  border-block-start: 1px solid var(--dg-divider);
+  margin-block-start: var(--dg-space);
+  padding-block-start: var(--dg-space);
+}
+
+:where([data-de-gualle]) article > :first-child, :where([data-de-gualle]):is(article > :first-child) {
+  margin-block-start: 0;
+}
+
+:where([data-de-gualle]) article > :last-child, :where([data-de-gualle]):is(article > :last-child) {
+  margin-block-end: 0;
+}
+
+:where([data-de-gualle]) [role="status"], :where([data-de-gualle])[role="status"], :where([data-de-gualle]) [role="alert"], :where([data-de-gualle])[role="alert"] {
+  background: var(--dg-surface-muted);
+  border-inline-start: 3px solid var(--dg-border);
+  border-radius: var(--dg-radius);
+  padding: .75em 1em;
+}
+
+:where([data-de-gualle]) [role="alert"], :where([data-de-gualle])[role="alert"] {
+  color: var(--dg-error);
+  border-color: currentColor;
+}
+
+:where([data-de-gualle]) details, :where([data-de-gualle]):is(details) {
+  border-block-end: 1px solid var(--dg-divider);
+  margin-block-end: var(--dg-space);
+  padding-block-end: var(--dg-space);
+}
+
+:where([data-de-gualle]) summary, :where([data-de-gualle]):is(summary) {
+  cursor: pointer;
+  min-block-size: 2.75rem;
+  padding-block: .6em;
+  font-weight: 620;
+}
+
+:where([data-de-gualle]) details[open] > summary, :where([data-de-gualle]):is(details[open] > summary) {
+  margin-block-end: .5em;
+}
+
+:where([data-de-gualle]) nav details, :where([data-de-gualle]):is(nav details) {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+:where([data-de-gualle]) nav details > ul, :where([data-de-gualle]):is(nav details > ul) {
+  min-inline-size: 12em;
+  padding: var(--dg-space);
+  border: 1px solid var(--dg-border);
+  background: var(--dg-surface);
+  z-index: 2;
+  display: block;
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-end: 0;
+}
+
+:where([data-de-gualle]) dialog, :where([data-de-gualle]):is(dialog) {
+  color: var(--dg-text);
+  background: var(--dg-surface);
+  border: 1px solid var(--dg-border);
+  border-radius: var(--dg-radius);
+  max-block-size: 85vh;
+  max-inline-size: min(36rem, 90vw);
+  padding: calc(var(--dg-space) * 1.5);
+  overflow: auto;
+}
+
+:where([data-de-gualle]) dialog:not([open]), :where([data-de-gualle]):is(dialog:not([open])) {
+  display: none;
+}
+
+:where([data-de-gualle]) dialog::backdrop, :where([data-de-gualle]):is(dialog)::backdrop {
+  background: #0000008c;
+}
+
+:where([data-de-gualle]) [data-tooltip], :where([data-de-gualle])[data-tooltip] {
+  position: relative;
+}
+
+:where([data-de-gualle]) [data-tooltip]:hover:after, :where([data-de-gualle])[data-tooltip]:hover:after, :where([data-de-gualle]) [data-tooltip]:focus:after, :where([data-de-gualle])[data-tooltip]:focus:after {
+  content: attr(data-tooltip);
+  background: var(--dg-text);
+  inline-size: max-content;
+  max-inline-size: 20rem;
+  color: var(--dg-background);
+  border-radius: var(--dg-radius);
+  z-index: 3;
+  pointer-events: none;
+  padding: .4em .7em;
+  font-size: .85em;
+  position: absolute;
+  inset-block-end: calc(100% + .5em);
+  inset-inline-start: 0;
+}
+
+:where([data-de-gualle]) [data-speaker], :where([data-de-gualle])[data-speaker] {
+  padding: var(--dg-space);
+  background: var(--dg-surface-muted);
+  border-radius: var(--dg-radius);
+  max-inline-size: 90%;
+  margin-block-end: var(--dg-space);
+}
+
+:where([data-de-gualle]) [data-speaker="user"], :where([data-de-gualle])[data-speaker="user"] {
+  background: var(--dg-tint);
+  margin-inline-start: auto;
+}
+
+:where([data-de-gualle]) [data-speaker] > header, :where([data-de-gualle]):is([data-speaker] > header) {
+  margin-block-end: .5em;
+  font-size: .85em;
+}
+
+:where([data-de-gualle]) [data-speaker] > :last-child, :where([data-de-gualle]):is([data-speaker] > :last-child) {
+  margin-block-end: 0;
+}
+
+:where([data-de-gualle]) form[data-composer], :where([data-de-gualle]):is(form[data-composer]) {
+  border-block-start: 1px solid var(--dg-divider);
+  margin: 0;
+  padding-block-start: var(--dg-space);
+}
+
+:where([data-de-gualle]) form[data-composer] textarea, :where([data-de-gualle]):is(form[data-composer] textarea) {
+  min-block-size: 5em;
+  max-block-size: 16em;
+}
+
+:where([data-de-gualle]) form[data-composer] > [data-actions], :where([data-de-gualle]):is(form[data-composer] > [data-actions]) {
+  justify-content: space-between;
+  margin-block-start: .65em;
+}
+
+:where([data-de-gualle]) section[data-chat], :where([data-de-gualle]):is(section[data-chat]) {
+  background: var(--dg-surface);
+  border: 1px solid var(--dg-divider);
+  border-radius: var(--dg-radius);
+  min-inline-size: 0;
+  padding: calc(var(--dg-space) * 1.25);
+  flex-direction: column;
+  display: flex;
+}
+
+:where([data-de-gualle]) section[data-chat] > header, :where([data-de-gualle]):is(section[data-chat] > header) {
+  border-block-end: 1px solid var(--dg-divider);
+  padding-block-end: var(--dg-space);
+}
+
+:where([data-de-gualle]) section[data-chat] > header h2, :where([data-de-gualle]):is(section[data-chat] > header h2) {
+  margin-block: 0 .25em;
+}
+
+:where([data-de-gualle]) section[data-chat] > ol, :where([data-de-gualle]):is(section[data-chat] > ol) {
+  padding: var(--dg-space) 0 0;
+  overscroll-behavior: contain;
+  max-block-size: 28rem;
+  margin: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+:where([data-de-gualle]) section[data-chat] > [role="status"], :where([data-de-gualle]):is(section[data-chat] > [role="status"]) {
+  margin-block: .5em var(--dg-space);
+  color: var(--dg-muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: .875em;
+}
+
+:where([data-de-gualle]) section[data-chat] > [role="alert"], :where([data-de-gualle]):is(section[data-chat] > [role="alert"]) {
+  margin-block-end: var(--dg-space);
+}
+
+:where([data-de-gualle]) section[data-dashboard], :where([data-de-gualle]):is(section[data-dashboard]) {
+  min-inline-size: 0;
+}
+
+:where([data-de-gualle]) section[data-dashboard] > header, :where([data-de-gualle]):is(section[data-dashboard] > header) {
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--dg-space);
+  flex-wrap: wrap;
+  margin-block-end: calc(var(--dg-space) * 1.5);
+  display: flex;
+}
+
+:where([data-de-gualle]) section[data-dashboard] > header h1, :where([data-de-gualle]):is(section[data-dashboard] > header h1) {
+  margin: 0;
+}
+
+:where([data-de-gualle]) section[data-dashboard] dl, :where([data-de-gualle]):is(section[data-dashboard] dl) {
+  gap: var(--dg-space);
+  padding-block: var(--dg-space);
+  border-block: 1px solid var(--dg-divider);
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  display: grid;
+}
+
+:where([data-de-gualle]) section[data-dashboard] dl > div, :where([data-de-gualle]):is(section[data-dashboard] dl > div) {
+  padding-inline-end: var(--dg-space);
+}
+
+:where([data-de-gualle]) section[data-dashboard] dt, :where([data-de-gualle]):is(section[data-dashboard] dt) {
+  color: var(--dg-muted);
+  font-size: .85em;
+  font-weight: 500;
+}
+
+:where([data-de-gualle]) section[data-dashboard] dd, :where([data-de-gualle]):is(section[data-dashboard] dd) {
+  letter-spacing: -.04em;
+  margin: 0;
+  font-size: 2em;
+  font-weight: 680;
+}

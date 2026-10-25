@@ -1,0 +1,13 @@
+# de-gualle
+
+> Classless CSS based on semantic HTML and atomic design. CSS + recipes, no required JavaScript runtime.
+
+- [Complete reference](./llms-full.txt)
+- [Start](./get-started.html)
+- [Architecture](./architecture.html)
+- [States](./states.html)
+- [Themes](./themes.html)
+- [Sizing](./sizing.html)
+- [Compatibility](./compatibility.html)
+- [Chat recipe](./examples/chat.html)
+- [Dashboard recipe](./examples/dashboard.html)

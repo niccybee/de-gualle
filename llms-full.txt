@@ -1,0 +1,782 @@
+# de-gualle — agent reference
+
+
+# File: agents.md
+
+# A reference you can hand to an agent.
+
+[Copy or download the complete plain-text guide](/llms-full.txt). [Entry-point index](/llms.txt).
+
+## Working rules
+
+1. Use semantic HTML. Atoms are native elements, molecules have one coherent job, organisms compose them.
+2. Do not invent classes. Use documented component/variant attributes only when native structure is insufficient.
+3. Global CSS styles the document. Scoped imports require `data-de-gualle` on a containing element or the element itself.
+4. For scoped whole-page styling, use `<body data-de-gualle data-size="natural">`.
+5. Use native state attributes before ARIA. ARIA communicates state; it does not implement behaviour.
+6. Ready is the normal enabled state. Loading is `aria-busy`; unavailability is normally `disabled`; read-only is `readonly`; explicit validation is `aria-invalid` plus an explanation.
+7. Do not mark untouched required fields erroneous. A service failure is not an invalid input.
+8. Keep labels, descriptions, keyboard focus and minimum control dimensions. Errors need text, not colour alone.
+9. Include organism dependencies through package exports. Do not manually reconstruct dependency ordering.
+10. Generate a theme from a seed colour; copy both mode palettes. Changing `--dg-brand` alone does not regenerate exported shades.
+11. Sizing modes are `sm`, `md`, `lg`, and default `natural`, set on a styling boundary.
+12. Optional behaviour belongs to the app or recipe. Do not assume CSS sends requests, cancels work, filters tables or manages custom keyboard patterns.
+13. Preserve iOS 15/Safari 15.4 compatibility. Document any new CSS feature and its fallback in the feature ledger.
+14. Use `ni`, `nr`, and `nlx` for package-manager commands in this project.
+
+## Attribute vocabulary
+
+| Attribute        | Values / use                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------- |
+| `data-de-gualle` | Presence opts into scoped CSS                                                               |
+| `data-theme`     | `light`, `dark`; omit for system                                                            |
+| `data-size`      | `sm`, `md`, `lg`, `natural`; on boundary                                                    |
+| `data-variant`   | Button `secondary` or `danger`; anchor `primary` or `secondary`; buttons default to primary |
+| `data-grid`      | Responsive composition                                                                      |
+| `data-stack`     | Vertical spacing                                                                            |
+| `data-actions`   | Wrapping action row                                                                         |
+| `data-overflow`  | Local horizontal scrolling                                                                  |
+| `data-field`     | Label/control/help composition                                                              |
+| `data-chat`      | On named chat section                                                                       |
+| `data-speaker`   | Message `user` or `assistant`                                                               |
+| `data-composer`  | On message form                                                                             |
+| `data-dashboard` | On named dashboard section                                                                  |
+| `data-tooltip`   | Optional nonessential decoration; not a full accessible tooltip                             |
+
+Documentation-only `data-doc-*`, `data-intro`, preview and swatch attributes are not component exports. Prefer the canonical recipes linked below.
+
+## Canonical recipes
+
+- [Forms and elements](/elements.md)
+- [State semantics](/states.md)
+- [Chat](/chat.md)
+- [Dashboard](/dashboard.md)
+- [Theme generation](/themes.md)
+- [Compatibility constraints](/compatibility.md)
+
+
+# File: architecture.md
+
+# From elements to interfaces.
+
+de-gualle uses [Brad Frost's atomic design methodology](https://atomicdesign.bradfrost.com/chapter-2/). It is a way to understand the parts and the whole, not a requirement to add an attribute for every layer.
+
+| Layer     | Responsibility                                   | Examples                                            |
+| --------- | ------------------------------------------------ | --------------------------------------------------- |
+| Atoms     | Native HTML elements and their applicable states | Input, label, button, legend, headings, table cells |
+| Molecules | Small compositions with one clear purpose        | Label + input + help text; composer; message        |
+| Organisms | Distinct sections made from smaller patterns     | Chat, dashboard                                     |
+| Templates | Page-level structure without fixed content       | Header + navigation + dashboard                     |
+| Pages     | Real content exercising the system               | Local chat and dashboard demos                      |
+
+## Semantics before selectors
+
+Use `fieldset` and `legend` for a related group of controls, not just a convenient border. Use `article` for self-contained content. Use a named `section` for a thematic region. Avoid choosing a tag solely for its default appearance.
+
+```html
+<fieldset>
+  <legend>Notification preferences</legend>
+  <label>
+    <input type="checkbox" name="email" />
+    Email updates
+  </label>
+  <label>
+    <input type="checkbox" name="sms" />
+    SMS updates
+  </label>
+</fieldset>
+```
+
+Native structure is enough for standard patterns. When HTML lacks a component distinction, use a documented attribute:
+
+```html
+<section data-chat aria-labelledby="assistant-title">
+  <header><h2 id="assistant-title">Assistant</h2></header>
+  <ol aria-label="Messages">
+    <li data-speaker="assistant"><p>How can I help?</p></li>
+  </ol>
+</section>
+```
+
+`data-chat` and `data-speaker` are library conventions, not accessibility semantics. Labels, elements and ARIA retain their native responsibilities. Custom attributes are not an SEO shortcut.
+
+## Source and distribution
+
+`src/atoms`, `src/molecules`, and `src/organisms` contain original plain CSS. `src/foundation.css` provides variables, focus rules and bounded sizing. A small build step resolves dependencies, expands styling boundaries, compiles for Safari 15.4 and generates minified files. The internal `:--root` placeholder never reaches users.
+
+No Sass, framework component runtime, utility class vocabulary, or mandatory JavaScript. The docs and recipe demos have their own JavaScript because a CSS library cannot send messages or filter data.
+
+CSS-only does not mean every interaction works without behaviour code: native disclosure works by itself; opening a modal dialog requires calling the browser's API. Recipes make that distinction explicit.
+
+
+# File: chat.md
+
+# A conversation, composed.
+
+The chat organism combines native headings, an ordered message list, a composer, status text and recovery actions. Its styling does not depend on an AI provider or a JavaScript framework.
+
+```js
+import "de-gualle/organisms/chat.css";
+```
+
+```html
+<section data-de-gualle data-chat aria-labelledby="chat-title">
+  <header><h2 id="chat-title">Assistant</h2></header>
+  <ol aria-label="Conversation">
+    <li data-speaker="assistant">
+      <header><strong>Assistant</strong></header>
+      <p>How can I help?</p>
+    </li>
+    <li data-speaker="user">
+      <header><strong>You</strong></header>
+      <p>Let's build something useful.</p>
+    </li>
+  </ol>
+  <p role="status" aria-live="polite">Ready for your message.</p>
+  <form data-composer>
+    <label for="message">Your message</label>
+    <textarea id="message" name="message" required></textarea>
+    <div data-actions><button type="submit">Send message</button></div>
+  </form>
+</section>
+```
+
+## Interaction recipe
+
+The standalone demo includes separate `chat.js` application code. Messages are inserted with `textContent` (including code examples), never interpreted as HTML. Data lives only in memory and disappears on reload. No analytics, storage, credentials or network calls.
+
+- Start empty, send a message and simulate incremental responses.
+- Keep a readable partial response when stopped; cancellation clears the timer.
+- Preserve the user's message on errors and retry without duplicating it.
+- Keep drafts editable while unavailable, but disable sending.
+- Mark the button busy and the composer read-only during generation.
+- Announce progress/completion via a separate polite status region. Do not announce each token.
+- Follow the message list only while the reader is already near its end.
+- Treat Shift/Enter as ordinary textarea input; submit with the send button. No shortcut interferes with input methods.
+
+This demonstrates state handling, not an accessible-chat certification. Screen-reader announcements and the iPhone keyboard/scrolling behaviour require device testing.
+
+<Demo src="/examples/chat.html" title="Interactive local chat" height="800" />
+
+[View the complete HTML](/examples/chat.html) · [View demo JavaScript](/examples/chat.js)
+
+
+# File: compatibility.md
+
+# Modern CSS. An honest baseline.
+
+The functional benchmark is **iPhone 7 on its latest available iOS 15 update**. The minimum CSS compilation target is Safari 15.4, with Chrome 100 and Firefox 100 as conservative desktop targets. Current Safari, Chrome, Edge and Firefox are intended targets. This does not promise support for an iPhone 7 left on its original iOS 10.
+
+Apple's [security release list](https://support.apple.com/en-au/100100) identifies the available iPhone 7 updates. We do not infer a Safari patch version from the iOS patch number. [WebKit's Safari 15.4 notes](https://webkit.org/blog/12445/new-webkit-features-in-safari-15-4/) describe relevant feature introductions.
+
+## Feature ledger
+
+Every CSS feature family used by the library is recorded below. “Fallback” describes the intended degradation, not evidence of testing on that engine. Release checks and physical-device results belong in the verification section.
+
+| Feature family                                                                | Baseline / compatibility                         | Fallback or handling                                                              |
+| ----------------------------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------- |
+| Custom properties, `var()`, `calc()`                                          | Supported by iOS 15; required                    | No IE support                                                                     |
+| Flexbox, gap, wrapping                                                        | Supported by iOS 15                              | Wrapped action rows; no fixed desktop-only widths                                 |
+| Grid, auto-fit/minmax                                                         | Supported by iOS 15                              | Single column when space is narrow                                                |
+| Logical dimensions, margin/padding/border/inset                               | Supported by target; compiled with Lightning CSS | RTL uses logical directions; validate native controls separately                  |
+| `min()`, `max()`, `clamp()`                                                   | Supported by iOS 15                              | Bounded sizing; no unbounded viewport typography                                  |
+| `:is()`, `:where()`, attribute selectors                                      | Supported by iOS 15; required for scoped build   | Explicit boundary; low-specificity selectors                                      |
+| `:focus-visible`                                                              | Safari 15.4+                                     | A standalone `:focus` outline comes first                                         |
+| `:has()`                                                                      | Safari 15.4+                                     | Enhances checkbox-label layout only; controls retain native operation             |
+| Native `dialog` / `::backdrop`                                                | Safari 15.4+                                     | Older engines need app polyfill or inline content; no automatic polyfill          |
+| Native `details` / `summary`                                                  | Supported by target                              | Browser owns expanded state and keyboard behaviour                                |
+| `accent-color`                                                                | Safari 15.4+                                     | Native controls stay usable if accent ignored                                     |
+| File-selector pseudo-element                                                  | Supported by target; compiler may prefix         | Native file chooser remains usable                                                |
+| Progress vendor pseudo-elements                                               | Safari/Firefox rules supplied                    | Native progress if custom appearance ignored                                      |
+| `color-scheme`, dark preference media                                         | Supported by target                              | Light default; explicit theme attributes override system                          |
+| HEX / sRGB colour and alpha backdrop                                          | Supported by target                              | Generated static palettes; no `color-mix()` or OKLCH requirement                  |
+| Animations / transforms                                                       | Supported by target                              | Reduced-motion media makes busy spinner static                                    |
+| Forced colours                                                                | Engine-dependent                                 | System border/focus overrides; macOS contrast differs from Windows forced colours |
+| `text-wrap: pretty`                                                           | Optional newer-browser enhancement               | Ordinary text wrapping                                                            |
+| Overscroll containment                                                        | Optional; support varies in iOS 15               | Native scrolling remains; no interaction depends on containment                   |
+| Overflow, sticky sidebar, responsive media                                    | Supported by target                              | Tables scroll locally; sidebar becomes native mobile disclosure                   |
+| CSS layers, nesting, `@scope`, container queries, anchor positioning, popover | Not runtime dependencies                         | Source emits flat selectors; future enhancements must include fallbacks           |
+
+Compiled distribution may contain vendor aliases and compatible transformations. Inspect `dist/` for the actual shipped CSS. Documentation chrome is separate from library CSS and has its own responsive rules.
+
+## JavaScript boundary
+
+The library requires none. The docs use stable VitePress 1.6 and Vue 3.5, built with a Safari 15.4 JS/CSS target. The standalone demo scripts use native modules, DOM APIs and timers available in the target. Clipboard copying is progressive: if unavailable or denied, the generated CSS remains selectable and downloadable.
+
+The site is statically rendered so documentation content remains available without hydration. The colour studio and local simulations require JavaScript. There are no external font, icon, colour-naming or AI-provider requests.
+
+## Verification record
+
+See [verification](/verification.md) for checks actually performed. **A 375px viewport or a current WebKit run is not an iPhone 7 test.** No physical-device results are claimed until someone records the device, iOS version, browser and date.
+
+### Physical-device checklist
+
+On an updated iPhone 7: load docs and standalone examples; operate all controls with touch; edit multiline text with the keyboard open; send, stop and retry; scroll messages without jumps; rotate; filter a wide table; use dark mode, increased text size, zoom and reduced motion; check VoiceOver labels and announcements. Record failures rather than silently raising the support floor.
+
+
+# File: components.md
+
+# Small compositions, clear jobs.
+
+This release covers Pico's broad categories using original classless CSS: native content and controls, disclosure, cards, dropdowns, groups, loading, modal, navigation, progress and nonessential hints. It does not copy Pico classes or promise identical behaviour.
+
+| Pattern         | Markup / import                                                    | Behaviour boundary                                             |
+| --------------- | ------------------------------------------------------------------ | -------------------------------------------------------------- |
+| Page containers | Direct `body > header/main/footer`; `molecules/layout.css`         | Automatic in global build, or with opted-in body               |
+| Responsive grid | `data-grid`; `molecules/layout.css`                                | Auto-fitting columns, minimum 18rem or available width         |
+| Action row      | `data-actions`; `molecules/layout.css`                             | Wrapping row of actions                                        |
+| Vertical stack  | `data-stack`; `molecules/layout.css`                               | Shared gap between children                                    |
+| Field           | Label + input + help, optional `data-field`; `molecules/field.css` | Explicit label/help associations remain required               |
+| Group           | `fieldset role="group"`; `molecules/field.css`                     | Shared row; provide a legend/name                              |
+| Card            | `article`, optional header/footer; `molecules/card.css`            | Use only for self-contained content                            |
+| Status / error  | `role="status"` / `role="alert"`; `molecules/card.css`             | Live-region semantics, not visual variants                     |
+| Accordion       | `details > summary`; `molecules/disclosure.css`                    | Native disclosure; independent items                           |
+| Dropdown        | `nav details > summary + ul`; `molecules/disclosure.css`           | Native disclosure with ordinary links, not an ARIA menu        |
+| Modal           | `dialog`; `molecules/disclosure.css`                               | Native focus trap/Escape after `showModal()`                   |
+| Loading         | `aria-busy="true"`; `atoms/button.css`                             | Visual state only; app manages the work                        |
+| Tooltip / hint  | Prefer visible help or native `title`                              | CSS `data-tooltip` is nonessential only; see below             |
+| Chat            | `section[data-chat]`; `organisms/chat.css`                         | Requires application behaviour; complete local recipe included |
+| Dashboard       | `section[data-dashboard]`; `organisms/dashboard.css`               | Requires data/filter behaviour; local recipe included          |
+
+## Disclosure and navigation
+
+```html
+<details>
+  <summary>What is included?</summary>
+  <p>Native elements and a few useful patterns.</p>
+</details>
+
+<nav aria-label="Project navigation">
+  <a href="/">🍅 Project</a>
+  <ul>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/settings">Settings</a></li>
+  </ul>
+</nav>
+```
+
+Do not add `role="menu"` to ordinary navigation. The dropdown recipe is a disclosure: it does not implement arrow-key menu navigation, outside-click dismissal, or automatic closing after navigation.
+
+## Dialog recipe
+
+```html
+<button type="button" id="open">Edit project</button>
+<dialog id="edit" aria-labelledby="edit-title">
+  <h2 id="edit-title">Edit project</h2>
+  <form method="dialog"><button>Done</button></form>
+</dialog>
+```
+
+```js
+const dialog = document.getElementById("edit");
+document
+  .getElementById("open")
+  .addEventListener("click", () => dialog.showModal());
+```
+
+This is optional application code using a native browser API, not library runtime. The benchmark supports dialog; older engines need a polyfill or an inline alternative. Never make essential content accessible only through an unsupported modal.
+
+## Hints
+
+Prefer visible `<small>` text associated by `aria-describedby`. A native `title` or the optional `data-tooltip="Hint"` decoration must not contain essential instructions or be the sole accessible name. CSS-only hints do not implement Escape dismissal, robust touch activation, or a complete accessible tooltip pattern. They are included as a limited visual affordance, not a claim of full tooltip accessibility.
+
+
+# File: dashboard.md
+
+# A quieter overview.
+
+The dashboard organism uses a named section, definition-list metrics, a filtering form and a semantic table. It is a recipe rather than a grid of special-purpose widgets.
+
+```js
+import "de-gualle/organisms/dashboard.css";
+```
+
+```html
+<section data-de-gualle data-dashboard aria-labelledby="overview-title">
+  <header><h1 id="overview-title">Overview</h1></header>
+  <dl>
+    <div>
+      <dt>Active projects</dt>
+      <dd>12</dd>
+    </div>
+    <div>
+      <dt>Tasks completed</dt>
+      <dd>148</dd>
+    </div>
+  </dl>
+  <form role="search">
+    <label for="query">Find a project</label>
+    <input id="query" name="query" type="search" />
+  </form>
+  <p role="status">3 projects shown.</p>
+  <div data-overflow tabindex="0" role="region" aria-label="Projects">
+    <table>
+      <caption>Recent projects</caption>
+      <thead>
+        <tr>
+          <th scope="col">Project</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Website refresh</th>
+          <td>In progress</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+```
+
+## State recipe
+
+The local example filters sample projects by name/status, simulates loading, and demonstrates error recovery. Select “Archived” or enter an unmatched query for the empty state. Filters survive refresh and failed requests. Metrics are static sample workspace totals, independent of filtered table rows.
+
+Keep essential status in text. Busy indicators are decorative supplements, not the sole feedback. A loading or failed table must not look like a successful empty result.
+
+<Demo src="/examples/dashboard.html" title="Interactive local dashboard" height="720" />
+
+[Open full page](/examples/dashboard.html) · [View demo JavaScript](/examples/dashboard.js)
+
+
+# File: elements.md
+
+# HTML, with thoughtful defaults.
+
+Atoms are native elements. Type, controls and supporting text share the same design variables and sizing system.
+
+[Open the complete living specimen →](/examples/elements.html)
+
+## Content
+
+Headings `h1`–`h6`, paragraphs, links, ordered/unordered/definition lists, emphasis, small text, marks, inline code, keyboard notation, preformatted code, quotes, dividers, figures, captions and responsive media are styled. Preserve a logical heading hierarchy.
+
+## Inputs and forms
+
+All native input types retain browser behaviour. Text-like inputs, textarea and select have a shared skin. Checkbox, radio, range, colour, file and button inputs receive appropriate specialised rules. Hidden inputs remain hidden. Unsupported input types fall back to the browser's native rendering.
+
+```html
+<div data-field>
+  <label for="email">Email address</label>
+  <input
+    id="email"
+    type="email"
+    name="email"
+    required
+    autocomplete="email"
+    aria-describedby="email-help"
+  />
+  <small id="email-help">We'll only use this to reply.</small>
+</div>
+```
+
+Use `label` rather than placeholder text as the control name. `name` determines submitted data. Use `autocomplete`, `inputmode`, and appropriate input types to improve keyboards and autofill.
+
+```html
+<fieldset>
+  <legend>Contact preference</legend>
+  <label>
+    <input type="radio" name="contact" value="email" checked />
+    Email
+  </label>
+  <label>
+    <input type="radio" name="contact" value="phone" />
+    Phone
+  </label>
+</fieldset>
+```
+
+An optional switch is still a native checkbox:
+
+```html
+<label>
+  <input type="checkbox" role="switch" name="notifications" />
+  Notifications
+</label>
+```
+
+## Buttons
+
+```html
+<button type="submit">Save changes</button>
+<button type="button" data-variant="secondary">Cancel</button>
+<button type="button" data-variant="danger">Delete project</button>
+<button type="button" aria-busy="true" disabled>Saving…</button>
+```
+
+Use a button for an action and an anchor with `href` for navigation. For a visually prominent navigation link, use `data-variant="primary"` or `"secondary"` on the anchor. It stays a link with normal link keyboard behaviour; do not give navigation a button role.
+
+## Tables
+
+```html
+<div data-overflow tabindex="0" role="region" aria-label="Project table">
+  <table>
+    <caption>Recent projects</caption>
+    <thead>
+      <tr>
+        <th scope="col">Project</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Website refresh</th>
+        <td>In progress</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+The wrapper makes wide data horizontally scrollable and keyboard accessible. Do not turn table rows into arbitrary mobile cards; keep their relationships intact.
+
+## Progress and meter
+
+```html
+<label for="upload">Upload</label>
+<progress id="upload" max="100" value="40">40%</progress>
+<label for="storage">Storage</label>
+<meter id="storage" min="0" max="100" value="65">65%</meter>
+```
+
+Omitting `value` on `progress` creates indeterminate progress. `meter` describes a known measurement, not a loading operation.
+
+<Demo src="/examples/elements.html" title="Native element specimen" height="650" />
+
+
+# File: get-started.md
+
+# A small beginning.
+
+de-gualle is a classless CSS library with a neutral, warm visual foundation and a tomato accent. It is independent of Pico and does not promise Pico stylesheet-swap compatibility.
+
+## A stylesheet and some HTML
+
+Build with `nr build:css`, then copy `dist/de-gualle.css` into your site's CSS directory. There is no published registry package or CDN endpoint yet.
+
+[Global CSS](/css/de-gualle.css) · [Minified global CSS](/css/de-gualle.min.css) · [Scoped CSS](/css/de-gualle.scoped.css)
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="/css/de-gualle.css" />
+    <title>A fresh start</title>
+  </head>
+  <body data-size="natural">
+    <header>
+      <nav aria-label="Main"><a href="/">🍅 My project</a></nav>
+    </header>
+    <main>
+      <h1>Something worth making.</h1>
+      <form>
+        <label for="name">Your name</label>
+        <input id="name" name="name" autocomplete="name" required />
+        <button type="submit">Get started</button>
+      </form>
+    </main>
+  </body>
+</html>
+```
+
+The global build styles native elements throughout the document. Direct `body > header`, `body > main`, and `body > footer` receive a centred page container. Use `--dg-measure: none` to make it fluid.
+
+## Scoped styling
+
+The scoped build only targets an opted-in boundary and its descendants. It does not reset `html` or style elements outside the boundary.
+
+```js
+import "de-gualle/scoped.css";
+// Equivalent default import: import 'de-gualle'
+```
+
+```html
+<section data-de-gualle>
+  <h2>Get in touch</h2>
+  <form>
+    <label>
+      Email
+      <input type="email" name="email" />
+    </label>
+    <button>Send</button>
+  </form>
+</section>
+```
+
+Use `<body data-de-gualle>` to opt in the whole body. `data-de-gualle="false"` still opts in: this is a presence attribute. Remove it to opt out.
+
+Scoped styles limit the library's reach; they do not block host styles from entering. Nested third-party widgets inside a boundary can be affected. There is no subtree opt-out or Shadow DOM isolation in this release. Put third-party content outside the boundary or use an iframe.
+
+## Import only what you need
+
+```js
+import "de-gualle/atoms/button.css";
+import "de-gualle/molecules/field.css";
+// Or an organism with its dependencies:
+import "de-gualle/organisms/chat.css";
+```
+
+All selective imports are scoped and include shared foundation/theme variables plus their dependency closure. A button import does not include the input skin. Repeated dependencies across separate CSS imports may repeat rules; use the full scoped bundle when importing most components. Bundlers must retain CSS side effects (the package declares them).
+
+The attribute controls **where**; imports control **what**. `[data-chat]` identifies an organism but does not opt into a scoped build by itself:
+
+```html
+<section data-de-gualle data-chat aria-label="Assistant">…</section>
+```
+
+## Work on the project
+
+```sh
+ni --frozen
+nr dev
+nr check
+```
+
+VitePress is a development dependency. Vue powers this documentation site, not the CSS library. After editing CSS sources, run `nr build:css` to regenerate imports and examples. Standalone recipes work from the built static site and make no external requests.
+
+Use `ni /absolute/path/to/pico-v2` in a consuming project to test local package imports, or `na pm pack` here to create a distributable tarball. The package name is reserved only in this local manifest; availability on npm has not been checked.
+
+
+# File: index.md
+
+---
+home: true
+title: Native HTML. Thoughtful defaults.
+---
+
+<section data-intro>
+<small>🍅 CLASSLESS CSS · MADE FOR PEOPLE & AGENTS</small>
+<h1>Less to write.<br>More room to grow.</h1>
+<p>Good interfaces start with good HTML. de-gualle gives native elements a considered foundation, from a single input to a whole conversation.</p>
+<div data-actions><a href="./get-started.html" data-variant="primary">Plant the first seed →</a><a href="./examples/elements.html" data-variant="secondary" target="_self">Explore the elements</a></div>
+</section>
+
+<div data-grid>
+<div><small>01 / THE FOUNDATION</small><h2>Your HTML already knows its job.</h2><p>Inputs, labels, legends and forms. Native semantics first; attributes where they add meaning.</p></div>
+<div><small>02 / YOUR COLOUR</small><h2>One seed. A complete theme.</h2><p>Choose a colour, check the pairings, export plain CSS. Light and dark, without a runtime.</p></div>
+<div><small>03 / BUILT TO LAST</small><h2>Modern CSS. Older phones, too.</h2><p>Progressive enhancement with an iPhone 7 benchmark and an honest compatibility record.</p></div>
+</div>
+
+## Small pieces, useful together.
+
+A working chat recipe, built from the same elements as everything else. Try a response, stop it midway, or explore an error state.
+
+<Demo src="/examples/chat.html" title="The chat recipe" height="720" />
+
+## A foundation you can read.
+
+```html
+<link rel="stylesheet" href="/css/de-gualle.css" />
+
+<main>
+  <h1>A fresh start.</h1>
+  <form>
+    <label for="email">Email address</label>
+    <input id="email" name="email" type="email" required />
+    <button type="submit">Keep me in the loop</button>
+  </form>
+</main>
+```
+
+No class vocabulary to memorise. No component JavaScript to ship. Just a small, documented system of native elements and purposeful compositions.
+
+[Read the field guide →](/get-started.md) · [Build your theme →](/themes.md) · [Copy the agent reference →](/agents.md)
+
+
+# File: sizing.md
+
+# A size that fits.
+
+Set sizing on `body` for the whole page or on an opted-in region. Typography, spacing and control padding draw from shared tokens. `natural` is the default, even when the attribute is omitted.
+
+```html
+<body data-de-gualle data-size="natural"></body>
+```
+
+| Mode      | Body text                               | Base spacing                           | Use                             |
+| --------- | --------------------------------------- | -------------------------------------- | ------------------------------- |
+| `sm`      | `.9375rem`                              | `.75rem`                               | Compact tools                   |
+| `md`      | `1rem`                                  | `1rem`                                 | Stable standard size            |
+| `lg`      | `1.125rem`                              | `1.5rem`                               | More generous interfaces        |
+| `natural` | `clamp(1rem, .95rem + .22vw, 1.125rem)` | `clamp(.9rem, .72rem + .65vw, 1.4rem)` | Fluid mobile-to-desktop default |
+
+`rem` respects the user's root font setting; the library does not change the HTML root font size. Font growth is bounded and combines viewport units with relative units, rather than scaling purely with the viewport. Zoom and large-text settings still need real testing.
+
+Controls keep at least 2.75rem (44px at a 16px root) height. Text-like form controls keep at least 1rem text to avoid small-text input zoom in iOS. Native checkbox/radio hit areas depend on their label; the label recipe gives them room. `sm` intentionally does not shrink every dimension without limit.
+
+## Fine-tune without a new size name
+
+```css
+body[data-de-gualle] {
+  --dg-font-size: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+  --dg-space: clamp(1rem, 0.8rem + 0.6vw, 1.5rem);
+  --dg-line-height: 1.65;
+}
+```
+
+Use the same or greater selector specificity and load overrides after the library. For a local size override, make the region a styling boundary too:
+
+```html
+<section data-de-gualle data-size="sm" aria-label="Compact settings">…</section>
+```
+
+Raw `data-size` on arbitrary descendants is not a utility selector. It is interpreted on the library boundary (or the body in the global build). Prefer a single page-wide setting; nested boundaries reset theme defaults as well.
+
+Try all modes in the [chat playground](/examples/chat.html) or the [theme studio](/themes.md).
+
+
+# File: states.md
+
+# State is part of the element.
+
+Use native HTML attributes first, then accurate ARIA, then custom attributes for application concepts that neither covers. There is no universal four-state machine applicable to every input.
+
+| Intent                   | Mechanism                                      | Behaviour / styling                                                                  |
+| ------------------------ | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Ready                    | Normal enabled element                         | Default appearance; no invented ready attribute                                      |
+| Loading                  | `aria-busy="true"`                             | Busy cursor; buttons add a spinner; application must manage work                     |
+| Unavailable              | `disabled`                                     | Native controls cannot activate, are unfocusable and excluded from submission        |
+| Discoverable unavailable | `aria-disabled="true"`                         | Communicates state; application must prevent activation; button appearance supported |
+| Read-only                | `readonly`                                     | Supported inputs and textarea stay focusable/copyable; dashed border                 |
+| Required / optional      | `required`; `:required`, `:optional`           | Native validation; no automatic red border on untouched fields                       |
+| Explicit error           | `aria-invalid="true"`                          | Error border; connect a visible explanation with `aria-describedby`                  |
+| Explicit valid           | `aria-invalid="false"`                         | Optional success border after validation; omit on untouched controls                 |
+| Constraint valid/invalid | `:valid`, `:invalid`                           | Browser validation remains; no default eager error skin                              |
+| In/out of range          | `min`, `max`; `:in-range`, `:out-of-range`     | Native constraints; validate and explain before setting explicit error               |
+| Checked                  | `:checked`                                     | Current checkedness; browser-native check/radio indicator                            |
+| Indeterminate            | DOM `indeterminate` property; `:indeterminate` | Native mixed checkbox indicator; no HTML indeterminate attribute                     |
+| Selected option          | Current option selection; `:checked`           | Browser renders selection; `[selected]` is only the initial default                  |
+| Expanded disclosure      | `open` on `details` / `dialog`                 | Browser state; dialog modal activation needs `showModal()`                           |
+| Hidden                   | `hidden`                                       | Removed from layout and accessibility tree; not an unavailable control               |
+| Focus / keyboard focus   | `:focus`, `:focus-visible`                     | Visible outline; focus fallback for older browsers                                   |
+| Hover / pressed          | `:hover`, `:active`                            | Native interaction; no mirrored state attribute                                      |
+
+`aria-pressed`, `aria-expanded`, `aria-selected`, `aria-current`, and `aria-checked="mixed"` describe specific accessible patterns. Do not add them just to obtain a style. This release does not implement custom tab, listbox or menu keyboard behaviour.
+
+Other native conditions include `:enabled`, `:read-only` / `:read-write`, `:placeholder-shown`, `:default`, and browser autofill. They retain browser behaviour without a separate de-gualle skin. `autofocus` requests initial focus rather than representing an ongoing state. Newer `:user-valid` / `:user-invalid` selectors and `inert` are not baseline dependencies; do not rely on them without checking support and providing the appropriate fallback.
+
+## Explain an error
+
+```html
+<div data-field>
+  <label for="email">Email address</label>
+  <input
+    id="email"
+    name="email"
+    type="email"
+    aria-invalid="true"
+    aria-describedby="email-error"
+  />
+  <small id="email-error" role="alert">! Enter a complete email address.</small>
+</div>
+```
+
+Only announce an error when it becomes relevant. An initial static specimen can show the state, but production forms should set it after validation. Clear stale error messages and attributes when the value is corrected. Errors must not rely solely on colour.
+
+## Loading is not disabled
+
+```html
+<button type="submit" aria-busy="true" disabled>Saving changes…</button>
+```
+
+Here `aria-busy` describes work, `disabled` prevents duplicate submission, and the text explains what is happening. Neither attribute performs the request. Keep a separate cancel button available when the operation can be cancelled.
+
+## Native validity and current state
+
+`checked` and `selected` attributes describe defaults. Use current properties or state pseudo-classes after user interaction, not `[checked]` or `[selected]` selectors. `readonly` does not apply to selects, checkboxes or radios. Disabled `fieldset` affects most descendant controls; descendants of its first legend are an HTML exception.
+
+A response failure is a service error, not invalid message text. Keep the user's message and offer retry. Announce completed chat responses through a separate polite status region rather than every streamed token.
+
+
+# File: themes.md
+
+# One colour. A complete theme.
+
+Choose a HEX colour, generate a scale, inspect foreground/background contrast, and copy or download plain CSS. No application runtime is required. This workflow is inspired by the [enhanced colour-scale generator](https://github.com/sbensidi/enhanced-color-scale-generator); the implementation here is original.
+
+## Colour studio
+
+<ThemeBuilder />
+
+## Use the exported theme
+
+```html
+<link rel="stylesheet" href="/css/de-gualle.scoped.css" />
+<link rel="stylesheet" href="/css/de-gualle.theme.css" />
+<body data-de-gualle data-size="natural">
+  <!-- Follows the device preference by default -->
+</body>
+```
+
+Explicit overrides:
+
+```html
+<body data-de-gualle data-theme="light">
+  <body data-de-gualle data-theme="dark"></body>
+</body>
+```
+
+Remove `data-theme` to follow the system again. No theme-selection JavaScript is required unless your app provides a toggle. For the global build, keep `data-de-gualle` on the body when using the generated theme; it is the exported theme's boundary.
+
+## Variables you can edit
+
+| Purpose      | Variables                                                                        |
+| ------------ | -------------------------------------------------------------------------------- |
+| Palette      | `--dg-brand`, `--dg-primary-50` through `--dg-primary-950`                       |
+| Actions      | `--dg-primary`, `--dg-on-primary`, `--dg-primary-hover`, `--dg-on-primary-hover` |
+| Surfaces     | `--dg-background`, `--dg-surface`, `--dg-surface-muted`, `--dg-tint`             |
+| Content      | `--dg-text`, `--dg-muted`, `--dg-border`, `--dg-divider`                         |
+| Feedback     | `--dg-error`, `--dg-success`, `--dg-warning`, `--dg-focus`                       |
+| Shape / type | `--dg-radius`, `--dg-font`, `--dg-mono`, `--dg-line-height`, `--dg-measure`      |
+
+Set overrides on the same opted-in boundary, after the library. Nested `[data-de-gualle]` regions start their own default theme; apply exported tokens there too if needed.
+
+```css
+body[data-de-gualle] {
+  --dg-radius: 0.2rem;
+  --dg-measure: 80rem;
+}
+```
+
+## How generation works
+
+The original seed is preserved at shade 500. Lighter shades interpolate towards white; darker shades interpolate towards black in sRGB. The generator then adjusts semantic action/link colours separately to meet 4.5:1 against both page and panel surfaces. Button text is selected from black/white for contrast. This is deterministic sRGB interpolation, not a perceptually uniform OKLCH scale.
+
+The raw palette is a selection of colours, not a guarantee that any two shades work together. Semantic tokens are the intended component colours. Editing a seed variable after export does not regenerate the scale: generate the theme again. Overriding colours, transparency or surfaces invalidates earlier pair checks; recheck your final combinations.
+
+The generator reports normal-text AA contrast for selected pairs only. It does not certify a whole interface, keyboard behaviour, custom backgrounds, disabled text, or all possible compositions. Extremely light seeds may need a visibly darker semantic action colour to remain readable.
+
+
+# File: verification.md
+
+# Verification record
+
+This page records evidence, not intended support. The physical iPhone 7 check remains pending.
+
+Initial verification: **24 October 2026**. Run `nr check` for the repeatable colour, scoping, package-export and production-build checks.
+
+| Check                     | Evidence / result                                                                                                                                                                                              |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CSS build                 | Global and scoped bundles; 13 scoped entries with dependencies; readable and minified versions; Safari 15.4 compilation target                                                                                 |
+| Automated checks          | Seven tests: HEX validation/injection rejection, contrast pairs, deterministic scale/export, dependency closure, selector boundaries, package exports                                                          |
+| Palette coverage          | 74 seed cases (including black, white, yellow and an RGB grid), in both light and dark modes; selected text/action pairs meet 4.5:1                                                                            |
+| Production documentation  | All 13 pages checked at 375 × 667 in Chrome 155.0.8059.86; one main heading per page; no horizontal document overflow or runtime/HTTP failures during the pass                                                 |
+| Chat                      | Chrome and Playwright WebKit 26.6: sending, safe text rendering, stopping, retry without duplicated prompts, unavailable drafts, code responses, dark mobile layout and minimum control sizing passed          |
+| Dashboard                 | Chrome: search, empty results, loading, simulated error, recovery and filter preservation passed; mobile and desktop layouts checked                                                                           |
+| Theme studio              | Chrome: generation, light/dark contrast, invalid-input recovery, CSS copy/download and narrow layout passed; WebKit: hydration, generation, dark preview and docs override passed                              |
+| Native / scoped behaviour | Chrome: dialog focus, Escape dismissal and return focus; host styles unaffected outside the boundary; self-scoped button; untouched required field; explicit/system theme precedence and reduced motion passed |
+| Package                   | Bun package dry run includes CSS distribution, source, recipes, theme generator and license; no registry publication performed                                                                                 |
+
+Browser check scripts and screenshots are local development artifacts under `output/playwright/` (git-ignored). Browser actions were performed through Playwright CLI. Viewport sizing is not device emulation of iOS Safari. These checks are focused functional evidence, not a comprehensive accessibility audit.
+
+## Still requires device or external verification
+
+- Physical iPhone 7 with its latest iOS 15 update: real keyboard, touch, orientation, scroll behaviour, zoom, larger text, reduced motion and VoiceOver.
+- Safari 15.4 itself, current Firefox and Edge. Current WebKit passing does not prove older Safari passes.
+- Windows forced-colour behaviour and assistive technology across browsers.
+
+The CSS library is designed for the stated baseline. Do not describe it as physically verified on iPhone 7 until the device record is completed.

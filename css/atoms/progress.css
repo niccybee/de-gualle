@@ -1,0 +1,251 @@
+/*! de-gualle v0.1.0 | MIT | 🍅 Semantic HTML, thoughtful defaults. */
+:where([data-de-gualle]) {
+  --lightningcss-light: initial;
+  --lightningcss-dark: ;
+  color-scheme: light;
+  --dg-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --dg-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --dg-font-size: clamp(1rem, .95rem + .22vw, 1.125rem);
+  --dg-space: clamp(.9rem, .72rem + .65vw, 1.4rem);
+  --dg-radius: .3rem;
+  --dg-line-height: 1.6;
+  --dg-measure: 76rem;
+  font-family: var(--dg-font);
+  font-size: var(--dg-font-size);
+  line-height: var(--dg-line-height);
+  color: var(--dg-text);
+  background: var(--dg-background);
+  -webkit-text-size-adjust: 100%;
+  overflow-wrap: break-word;
+}
+
+:where([data-de-gualle])[data-size="sm"] {
+  --dg-font-size: .9375rem;
+  --dg-space: .75rem;
+}
+
+:where([data-de-gualle])[data-size="md"] {
+  --dg-font-size: 1rem;
+  --dg-space: 1rem;
+}
+
+:where([data-de-gualle])[data-size="lg"] {
+  --dg-font-size: 1.125rem;
+  --dg-space: 1.5rem;
+}
+
+:where([data-de-gualle])[data-size="natural"] {
+  --dg-font-size: clamp(1rem, .95rem + .22vw, 1.125rem);
+  --dg-space: clamp(.9rem, .72rem + .65vw, 1.4rem);
+}
+
+:where([data-de-gualle]) *, :where([data-de-gualle]):is(*), :where([data-de-gualle]) :before, :where([data-de-gualle]):is(*):before, :where([data-de-gualle]) :after, :where([data-de-gualle]):is(*):after {
+  box-sizing: border-box;
+}
+
+:where([data-de-gualle]) [hidden], :where([data-de-gualle])[hidden] {
+  display: none !important;
+}
+
+:where([data-de-gualle]) :focus, :where([data-de-gualle]):focus {
+  outline: 2px solid var(--dg-focus);
+  outline-offset: 3px;
+}
+
+:where([data-de-gualle]) :focus:not(:focus-visible), :where([data-de-gualle]):focus:not(:focus-visible) {
+  outline: none;
+}
+
+:where([data-de-gualle]) :focus-visible, :where([data-de-gualle]):focus-visible {
+  outline: 2px solid var(--dg-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where([data-de-gualle]) *, :where([data-de-gualle]):is(*), :where([data-de-gualle]) :before, :where([data-de-gualle]):is(*):before, :where([data-de-gualle]) :after, :where([data-de-gualle]):is(*):after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :where([data-de-gualle]) button, :where([data-de-gualle]):is(button), :where([data-de-gualle]) input, :where([data-de-gualle]):is(input), :where([data-de-gualle]) textarea, :where([data-de-gualle]):is(textarea), :where([data-de-gualle]) select, :where([data-de-gualle]):is(select) {
+    border: 1px solid buttontext;
+  }
+
+  :where([data-de-gualle]) :focus, :where([data-de-gualle]):focus {
+    outline-color: highlight;
+  }
+}
+
+:where([data-de-gualle]) {
+  --dg-primary-50: #fdf7f7;
+  --dg-primary-100: #f9eceb;
+  --dg-primary-200: #f0d0cc;
+  --dg-primary-300: #e4aaa3;
+  --dg-primary-400: #d5786b;
+  --dg-primary-500: #c44332;
+  --dg-primary-600: #a93a2b;
+  --dg-primary-700: #892f23;
+  --dg-primary-800: #66231a;
+  --dg-primary-900: #431711;
+  --dg-primary-950: #230c09;
+  --dg-brand: #c44332;
+  --dg-background: #faf9f6;
+  --dg-surface: #fff;
+  --dg-surface-muted: #efeee9;
+  --dg-text: #242923;
+  --dg-muted: #62685e;
+  --dg-border: #81877b;
+  --dg-divider: #dedfd6;
+  --dg-primary: #c44332;
+  --dg-on-primary: #fff;
+  --dg-primary-hover: #ac3b2c;
+  --dg-on-primary-hover: #fff;
+  --dg-tint: #fbf4f3;
+  --dg-error: #a72620;
+  --dg-success: #24613b;
+  --dg-warning: #795100;
+  --dg-focus: #c44332;
+}
+
+@media (prefers-color-scheme: dark) {
+  :where([data-de-gualle]):not([data-theme="light"]) {
+    --lightningcss-light: ;
+    --lightningcss-dark: initial;
+    color-scheme: dark;
+    --dg-primary-50: #fdf7f7;
+    --dg-primary-100: #f9eceb;
+    --dg-primary-200: #f0d0cc;
+    --dg-primary-300: #e4aaa3;
+    --dg-primary-400: #d5786b;
+    --dg-primary-500: #c44332;
+    --dg-primary-600: #a93a2b;
+    --dg-primary-700: #892f23;
+    --dg-primary-800: #66231a;
+    --dg-primary-900: #431711;
+    --dg-primary-950: #230c09;
+    --dg-brand: #c44332;
+    --dg-background: #191c1b;
+    --dg-surface: #222624;
+    --dg-surface-muted: #2c322e;
+    --dg-text: #f2f3ee;
+    --dg-muted: #b1b9b1;
+    --dg-border: #737e74;
+    --dg-divider: #3b443d;
+    --dg-primary: #d26f63;
+    --dg-on-primary: #000;
+    --dg-primary-hover: #d78076;
+    --dg-on-primary-hover: #000;
+    --dg-tint: #392a26;
+    --dg-error: #ffb4ab;
+    --dg-success: #9bd8af;
+    --dg-warning: #efce8c;
+    --dg-focus: #d26f63;
+  }
+}
+
+:where([data-de-gualle])[data-theme="dark"] {
+  --lightningcss-light: ;
+  --lightningcss-dark: initial;
+  color-scheme: dark;
+  --dg-primary-50: #fdf7f7;
+  --dg-primary-100: #f9eceb;
+  --dg-primary-200: #f0d0cc;
+  --dg-primary-300: #e4aaa3;
+  --dg-primary-400: #d5786b;
+  --dg-primary-500: #c44332;
+  --dg-primary-600: #a93a2b;
+  --dg-primary-700: #892f23;
+  --dg-primary-800: #66231a;
+  --dg-primary-900: #431711;
+  --dg-primary-950: #230c09;
+  --dg-brand: #c44332;
+  --dg-background: #191c1b;
+  --dg-surface: #222624;
+  --dg-surface-muted: #2c322e;
+  --dg-text: #f2f3ee;
+  --dg-muted: #b1b9b1;
+  --dg-border: #737e74;
+  --dg-divider: #3b443d;
+  --dg-primary: #d26f63;
+  --dg-on-primary: #000;
+  --dg-primary-hover: #d78076;
+  --dg-on-primary-hover: #000;
+  --dg-tint: #392a26;
+  --dg-error: #ffb4ab;
+  --dg-success: #9bd8af;
+  --dg-warning: #efce8c;
+  --dg-focus: #d26f63;
+}
+
+:where([data-de-gualle])[data-theme="light"] {
+  --lightningcss-light: initial;
+  --lightningcss-dark: ;
+  color-scheme: light;
+  --dg-primary-50: #fdf7f7;
+  --dg-primary-100: #f9eceb;
+  --dg-primary-200: #f0d0cc;
+  --dg-primary-300: #e4aaa3;
+  --dg-primary-400: #d5786b;
+  --dg-primary-500: #c44332;
+  --dg-primary-600: #a93a2b;
+  --dg-primary-700: #892f23;
+  --dg-primary-800: #66231a;
+  --dg-primary-900: #431711;
+  --dg-primary-950: #230c09;
+  --dg-brand: #c44332;
+  --dg-background: #faf9f6;
+  --dg-surface: #fff;
+  --dg-surface-muted: #efeee9;
+  --dg-text: #242923;
+  --dg-muted: #62685e;
+  --dg-border: #81877b;
+  --dg-divider: #dedfd6;
+  --dg-primary: #c44332;
+  --dg-on-primary: #fff;
+  --dg-primary-hover: #ac3b2c;
+  --dg-on-primary-hover: #fff;
+  --dg-tint: #fbf4f3;
+  --dg-error: #a72620;
+  --dg-success: #24613b;
+  --dg-warning: #795100;
+  --dg-focus: #c44332;
+}
+
+:where([data-de-gualle]) progress, :where([data-de-gualle]):is(progress), :where([data-de-gualle]) meter, :where([data-de-gualle]):is(meter) {
+  block-size: .7em;
+  inline-size: 100%;
+  margin-block: var(--dg-space);
+  accent-color: var(--dg-primary);
+  border-radius: var(--dg-radius);
+  border: 0;
+  display: block;
+  overflow: hidden;
+}
+
+:where([data-de-gualle]) progress::-webkit-progress-bar {
+  background: var(--dg-surface-muted);
+}
+
+:where([data-de-gualle]):is(progress)::-webkit-progress-bar {
+  background: var(--dg-surface-muted);
+}
+
+:where([data-de-gualle]) progress::-webkit-progress-value {
+  background: var(--dg-primary);
+}
+
+:where([data-de-gualle]):is(progress)::-webkit-progress-value {
+  background: var(--dg-primary);
+}
+
+:where([data-de-gualle]) progress::-moz-progress-bar {
+  background: var(--dg-primary);
+}
+
+:where([data-de-gualle]):is(progress)::-moz-progress-bar {
+  background: var(--dg-primary);
+}
